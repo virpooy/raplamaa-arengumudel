@@ -1,0 +1,115 @@
+# Andmete automaatne uuendamine.
+# Iga kuu pärib Statistikaametist värsked andmed, kontrollib neid ja:
+#   - muutusi ei ole                       -> midagi ei juhtu
+#   - vead (puuduvad väärtused, summad)    -> andmeid ei rakendata, avatakse teade (issue)
+#   - muutused + hoiatused (uus aasta, Statistikaamet täpsustas vanu väärtusi)
+#                                          -> muudatus läheb eraldi harusse ülevaatamiseks, avatakse teade
+#   - muutused ilma hoiatusteta, leht töötab -> avaldatakse kohe (commit main-i, GitHub Pages uuendab lehe)
+# Käsitsi käivitamine: Actions -> "Andmete uuendamine" -> Run workflow.
+name: Andmete uuendamine
+
+on:
+  schedule:
+    - cron: "23 4 5 * *"   # iga kuu 5. kuupäeval 04:23 UTC (06:23/07:23 Eesti aja järgi)
+  workflow_dispatch:
+    inputs:
+      force_review:
+        description: "Suuna muudatus alati ülevaatamisele (ära avalda otse)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: andmed
+  cancel-in-progress: false
+
+jobs:
+  pop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Päri rahvastikuandmed (Statistikaamet)
+        id: fetch
+        run: |
+          set +e
+          node pipeline/run.mjs pop
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Kokkuvõte
+        id: sum
+        run: |
+          python3 tools/summary.py pop
+          cat pipeline/out/pop.summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Pärimine ebaõnnestus
+        if: steps.fetch.outputs.code == '1'
+        run: |
+          echo "Statistikaameti päring ebaõnnestus (võrguviga või API muutus). Andmeid ei muudetud."
+          exit 1
+
+      - name: Vead andmetes -> teade, andmeid ei rakendata
+        if: steps.fetch.outputs.code == '2'
+        run: |
+          gh issue create --title "Andmete uuendamine: rahvastikuandmetes on vigu ($(date +%F))" --body-file pipeline/out/pop.summary.md
+          exit 1
+
+      - name: Rakenda andmed ja ehita leht
+        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
+        run: |
+          python3 tools/apply.py pop
+          python3 build.py
+
+      - name: Paigalda Playwright
+        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
+        run: |
+          pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+
+      - name: Väravatest (leht peab töötama)
+        id: gate
+        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
+        run: |
+          set +e
+          python3 tests/t_gate.py | tee pipeline/out/gate.txt
+          echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Leht ei tööta uute andmetega -> teade
+        if: steps.gate.outputs.code == '1'
+        run: |
+          { cat pipeline/out/pop.summary.md; echo; echo "### Väravatest ei läbinud"; echo '```'; tail -40 pipeline/out/gate.txt; echo '```'; } > pipeline/out/issue.md
+          gh issue create --title "Andmete uuendamine: leht ei tööta uute rahvastikuandmetega ($(date +%F))" --body-file pipeline/out/issue.md
+          exit 1
+
+      - name: Salvesta (otse või ülevaatamiseks)
+        if: steps.gate.outputs.code == '0'
+        run: |
+          git config user.name "andmete-uuendus[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/pop.json data/fetched.json index.html
+          if [ "${{ steps.sum.outputs.nwarn }}" = "0" ] && [ "${{ inputs.force_review }}" != "true" ]; then
+            git commit -m "Andmed: rahvastik uuendatud Statistikaametist ($(date +%F))" -m "$(cat pipeline/out/pop.summary.md)"
+            git push origin HEAD:main
+            echo "Avaldatud otse." >> "$GITHUB_STEP_SUMMARY"
+          else
+            BR="andmeuuendus/pop-$(date +%Y%m%d)"
+            git switch -c "$BR"
+            git commit -m "Andmed: rahvastik uuendatud Statistikaametist ($(date +%F)), vajab ülevaatust" -m "$(cat pipeline/out/pop.summary.md)"
+            git push -f origin "$BR"
+            { cat pipeline/out/pop.summary.md; echo; echo "Muudatus on harus \`$BR\`: https://github.com/${{ github.repository }}/compare/main...$BR"; echo; echo "Leht töötab uute andmetega (väravatest läbis). Kui kõik on korras, ühenda haru main-iga."; } > pipeline/out/issue.md
+            gh issue create --title "Andmete uuendamine: rahvastik vajab ülevaatust ($(date +%F))" --body-file pipeline/out/issue.md
+          fi

@@ -22,7 +22,16 @@ Analüüsivahend, mitte omavalitsuse ametlik seisukoht. Andmete automaatne uuend
 - `econ/`: Seosed-peatüki andmete ettevalmistus (79 omavalitsuse ristlõige), väljund `data/econ.json`.
 - `tools/datafmt.py`: andmefailide ühtne vorming, et git-i erinevused oleksid loetavad.
 
-## Andmete uuendamine
+## Andmete automaatne uuendamine
+GitHub Actions (`.github/workflows/andmed.yml`) käivitub iga kuu 5. kuupäeval ja pärib Statistikaametist värsked rahvastikuandmed (`pipeline/stat_pop.mjs`). Seejärel:
+- **muutusi ei ole:** midagi ei juhtu;
+- **andmetes on vigu** (puuduv väärtus, summad ei klapi): andmeid ei rakendata ja avaneb teade (Issues);
+- **andmed muutusid ja on hoiatusi** (uus aasta, Statistikaamet täpsustas vanu väärtusi): muudatus läheb eraldi harusse ja avaneb teade ülevaatamiseks;
+- **andmed muutusid ilma hoiatusteta ja leht töötab** (`tests/t_gate.py`): leht avaldatakse kohe.
+
+Käsitsi käivitamine: **Actions → Andmete uuendamine → Run workflow**. Pärimise ajad on failis `data/fetched.json`.
+
+## Andmete käsitsi uuendamine
 1. Muuda või genereeri fail kaustas `data/`.
 2. `python3 build.py`
 3. Käivita testid. Regressioonitest näitab, kuidas mudeli tulemused muutusid.

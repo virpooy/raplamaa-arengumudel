@@ -14,7 +14,7 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 
 | Fail | Sisu | Allikas | Uuendus |
 |---|---|---|---|
-| `pop.json` | Rahvastik valla ja maakonna kaupa: viieaastased vanuserühmad 2015–2026 (`age`), kokku (`tot`), sünnid (`b`), surmad (`d`), sisse- ja väljaränne (`mi`, `mo`) | Statistikaamet RV0240 / RV0282U, RV112U, RV49U, RVR02 | auto |
+| `pop.json` | Rahvastik valla ja maakonna kaupa: viieaastased vanuserühmad 2015–2026 (`age`), kokku (`tot`), sünnid (`b`), surmad (`d`), sisse- ja väljaränne (`mi`, `mo`) | Statistikaamet RV0282U (vanuserühmad ja kokku), RV112U, RV49U, RVR02 (sise- ja välisränne) | **auto**: `pipeline/stat_pop.mjs`, igakuine |
 | `fins.json` | Eelarve põhinäitajad 2017–2025 (`n1` põhitegevuse tulud jne, tuh €) valdade ja maakonna kaupa | KOV eelarve täitmine; sama näitajakoodid nagu `db.json` kirjetes (RR300 ja aruanded) | auto (RR300) / pool |
 | `mta.json` | Üksikisiku tulumaks valdadele kuude kaupa | Maksu- ja Tolliamet | pool |
 | `geo.json` | Valdade piirid ja asulad joonistamiseks (SVG teed, keskpunktid) | Maa- ja Ruumiamet, EHAK (haldusjaotus 01.01.2018) | käsitsi, muutub harva |

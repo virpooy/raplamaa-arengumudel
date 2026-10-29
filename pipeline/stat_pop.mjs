@@ -136,9 +136,11 @@ export function checkPop(pop, prev) {
     if (/^(b|d)$/.test(f) && Math.abs(s - m) > 5) err.push(`${f} ${Y0 + i}: valdade summa ${s} ≠ maakond ${m}`);
   });
   // demograafiline tasakaal: tot(y+1) ≈ tot(y) + b - d + mi - mo
+  // Teadaolev katkestus: 1.01.2022 arvutati rahvastik rahvaloenduse 2021 põhjal ümber, võrrand ei kehti 2021→2022.
+  const BREAK = new Set([2021]);
   for (const u of ORDER.slice(1)) for (let i = 0; i < years.length - 1; i++) {
     const y = +years[i], j = y - Y0;
-    if (j >= pop[u].b.length) continue;
+    if (j >= pop[u].b.length || BREAK.has(y)) continue;
     const exp = pop[u].tot[y] + pop[u].b[j] - pop[u].d[j] + pop[u].mi[j] - pop[u].mo[j];
     const got = pop[u].tot[y + 1];
     if (Math.abs(exp - got) > Math.max(30, 0.005 * got)) warn.push(`${u} ${y}→${y + 1}: tasakaaluvõrrand ${exp} vs tegelik ${got}`);
@@ -148,6 +150,13 @@ export function checkPop(pop, prev) {
     const a = prev[u].tot[y], b = pop[u].tot[y];
     if (b === undefined) err.push(`${u} ${y}: aasta kadus andmetest`);
     else if (a !== b) warn.push(`${u} ${y}: rahvaarv muutus ${a} → ${b} (Statistikaamet täpsustas)`);
+  }
+  // uus aasta: mudeli algusaasta (START) ja kalibreerimine vajavad inimese ülevaatust
+  if (prev) {
+    const py = Object.keys(prev.MAAK.tot), ny = years.filter(y => !py.includes(y));
+    if (ny.length) warn.push(`uus rahvastikuaasta ${ny.join(", ")}: vaata üle mudeli algusaasta, kalibreerimine ja tagasitest`);
+    const pl = prev.MAAK.b.length, nl = pop.MAAK.b.length;
+    if (nl > pl) warn.push(`uus sündmuste aasta ${Y0 + nl - 1} (sünnid, surmad, ränne): vaata üle kalibreerimine`);
   }
   for (const u of ORDER) for (let i = 1; i < years.length; i++) {
     const a = pop[u].tot[years[i - 1]], b = pop[u].tot[years[i]];

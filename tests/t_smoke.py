@@ -13,6 +13,6 @@ async def main():
       await pg.evaluate(f'K9.go("{v}")');await pg.wait_for_timeout(700)
       r=await pg.evaluate(f'''(()=>{{const el=document.querySelector('#k9 .k9view[data-view="{v}"]');return {{err:[...el.querySelectorAll('.k9err')].map(x=>x.textContent).slice(0,3),h1:el.querySelector('h1')?.textContent,secs:[...el.querySelectorAll('section.k9sec')].map(s=>s.id).join(','),sub:[...el.querySelectorAll('.k9sub a')].length,title:document.title,cur:document.querySelector('.k9nav a[aria-current=page]')?.textContent}}}})()''')
       print(v,json.dumps(r,ensure_ascii=False))
-    await pg.screenshot(path='/tmp/claude-0/s_top.png')
+    await pg.screenshot(path=os.path.join(OUT,'s_top.png'))
     print('ERRS',errs[:10]);await b.close()
 asyncio.run(main())

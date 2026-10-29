@@ -69,7 +69,7 @@ async def main():
       out[unit+':'+v]=res
     out['ERRS']=errs[:30]
     await b.close()
-  json.dump(out,open(f'/tmp/claude-0/audit_{W}.json','w'),ensure_ascii=False,indent=0)
+  json.dump(out,open(os.path.join(OUT,f'audit_{W}.json'),'w'),ensure_ascii=False,indent=0)
   # summary
   for k,res in out.items():
     if k=='ERRS':continue
