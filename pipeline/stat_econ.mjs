@@ -19,7 +19,7 @@ async function q(t, sel, f) {
   const r = await f(API + t, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
   if (!r.ok) throw new Error(`${t}: päring HTTP ${r.status}`);
   const j = await r.json(); const ids = j.id, size = j.size, idx = ids.map(d => j.dimension[d].category.index);
-  return (k) => { let p = 0; ids.forEach((d, i) => { const ix = idx[i][k[d]]; if (ix === undefined) throw new Error(`${t}: tundmatu ${d}=${k[d]}`); p = p * size[i] + ix; }); const v = j.value[p]; return v === undefined ? null : v; };
+  return (k) => { if (Object.values(k).some(x => x == null)) return null; let p = 0; ids.forEach((d, i) => { const ix = idx[i][k[d]]; if (ix === undefined) throw new Error(`${t}: tundmatu ${d}=${k[d]}`); p = p * size[i] + ix; }); const v = j.value[p]; return v === undefined ? null : v; };
 }
 const yr = (a, b) => { const o = []; for (let y = a; y <= b; y++) o.push(String(y)); return o; };
 const S = (a) => a.some(x => x == null) ? null : a.reduce((t, x) => t + x, 0);
@@ -31,10 +31,10 @@ function unitCodes(m, varRe, names) {
   const lvl = t => (t.match(/^\.*/)[0].length);
   return { code: v.code, map: names.map(n => {
     const c = v.valueTexts.map((t, i) => ({ t, i, l: lvl(t) })).filter(o => o.t.replace(/^\.+/, "") === n);
-    if (!c.length) throw new Error(`${m.title.slice(0, 8)}: ei leia omavalitsust ${n}`);
+    if (!c.length) return null; // tabel ei avalda selle omavalitsuse kohta (nt Toila ER0320-s): väärtus puudub, mitte 0
     c.sort((a, b) => A(a.l - 2) - A(b.l - 2));
     return v.values[c[0].i];
-  }) };
+  }).map(x => x), get sel() { return this.map.filter(x => x != null); } };
 }
 
 export async function buildEcon(f, peersPrev, P) {
@@ -46,7 +46,7 @@ export async function buildEcon(f, peersPrev, P) {
   // RV0240
   { const m = await meta("RV0240", f); const U = unitCodes(m, /Elukoht/, names);
     const ys = [...new Set([p0, p1, ...P.rahvaMuutus.map(String)])];
-    const g = await q("RV0240", { Sugu: ["1"], Elukoht: U.map, Aasta: ys, Vanus: ["000", "0-17", "18-64", "65+"] }, f);
+    const g = await q("RV0240", { Sugu: ["1"], Elukoht: U.sel, Aasta: ys, Vanus: ["000", "0-17", "18-64", "65+"] }, f);
     const k = (i, y, a) => g({ Sugu: "1", Elukoht: U.map[i], Aasta: y, Vanus: a });
     const I = [...Array(N).keys()];
     put("p0", I.map(i => k(i, p0, "000"))); put("p1", I.map(i => k(i, p1, "000")));
@@ -59,42 +59,42 @@ export async function buildEcon(f, peersPrev, P) {
   // RVR02, RV112U, RV49U (summad voo perioodil)
   { const ys = yr(v0, v1);
     const m = await meta("RVR02", f); const U = unitCodes(m, /Haldus/, names);
-    const g = await q("RVR02", { Aasta: ys, [U.code]: U.map, Sugu: ["1"], "Näitaja": ["3"], "Rände liik": ["1", "2"] }, f);
+    const g = await q("RVR02", { Aasta: ys, [U.code]: U.sel, Sugu: ["1"], "Näitaja": ["3"], "Rände liik": ["1", "2"] }, f);
     put("MIG", U.map.map(c => S(ys.flatMap(y => ["1", "2"].map(l => g({ Aasta: y, [U.code]: c, Sugu: "1", "Näitaja": "3", "Rände liik": l }))))));
     for (const [t, fld] of [["RV112U", "B"], ["RV49U", "DD"]]) {
       const mm = await meta(t, f); const UU = unitCodes(mm, /Haldus/, names);
-      const gg = await q(t, { [UU.code]: UU.map, Aasta: ys, Sugu: ["1"] }, f);
+      const gg = await q(t, { [UU.code]: UU.sel, Aasta: ys, Sugu: ["1"] }, f);
       put(fld, UU.map.map(c => S(ys.map(y => gg({ [UU.code]: c, Aasta: y, Sugu: "1" })))));
     }
   }
   // UA08 tööga seotud tulu
   { const m = await meta("UA08", f); const U = unitCodes(m, /Elukoht/, names);
-    const g = await q("UA08", { Aasta: [t0, t1], Elukoht: U.map, "Näitaja": ["1", "4"], "Sissetuleku liik": ["1"] }, f);
+    const g = await q("UA08", { Aasta: [t0, t1], Elukoht: U.sel, "Näitaja": ["1", "4"], "Sissetuleku liik": ["1"] }, f);
     const k = (c, y, n) => g({ Aasta: y, Elukoht: c, "Näitaja": n, "Sissetuleku liik": "1" });
     put("uan0", U.map.map(c => k(c, t0, "1"))); put("uan1", U.map.map(c => k(c, t1, "1")));
     put("uae0", U.map.map(c => k(c, t0, "4"))); put("uae1", U.map.map(c => k(c, t1, "4")));
   }
   // PA107 palk ja töötajad
   { const m = await meta("PA107", f); const U = unitCodes(m, /Haldus/, names);
-    const g = await q("PA107", { "Näitaja": ["GR_W_AVG", "NR_EMPL"], [U.code]: U.map, Vaatlusperiood: [w0, w1] }, f);
+    const g = await q("PA107", { "Näitaja": ["GR_W_AVG", "NR_EMPL"], [U.code]: U.sel, Vaatlusperiood: [w0, w1] }, f);
     const k = (c, y, n) => g({ "Näitaja": n, [U.code]: c, Vaatlusperiood: y });
     put("wg0", U.map.map(c => k(c, w0, "GR_W_AVG"))); put("wg1", U.map.map(c => k(c, w1, "GR_W_AVG")));
     put("em0", U.map.map(c => k(c, w0, "NR_EMPL"))); put("em1", U.map.map(c => k(c, w1, "NR_EMPL")));
   }
   // ER0320 ettevõtted
   { const m = await meta("ER0320", f); const U = unitCodes(m, /Haldus/, names);
-    const g = await q("ER0320", { Aasta: [String(P.ettev)], [U.code]: U.map, "Töötajate arv": ["1"] }, f);
+    const g = await q("ER0320", { Aasta: [String(P.ettev)], [U.code]: U.sel, "Töötajate arv": ["1"] }, f);
     put("ent", U.map.map(c => g({ Aasta: String(P.ettev), [U.code]: c, "Töötajate arv": "1" })));
   }
   // RV06U tööturusurveindeks
   { const m = await meta("RV06U", f); const U = unitCodes(m, /Haldus/, names); const [a, b] = P.survei.map(String);
     const NI = m.variables.find(v => v.code === "Näitaja"); const DLI = NI.values[NI.valueTexts.findIndex(t => /tööturusurve/i.test(t))];
-    const g = await q("RV06U", { Aasta: [a, b], [U.code]: U.map, "Näitaja": [DLI] }, f);
+    const g = await q("RV06U", { Aasta: [a, b], [U.code]: U.sel, "Näitaja": [DLI] }, f);
     put("dli0", U.map.map(c => g({ Aasta: a, [U.code]: c, "Näitaja": DLI }))); put("dli1", U.map.map(c => g({ Aasta: b, [U.code]: c, "Näitaja": DLI })));
   }
   // TT065 registreeritud töötud (kuude keskmine)
   { const m = await meta("TT065", f); const U = unitCodes(m, /Haldus/, names); const [a, b] = P.tootud.map(String);
-    const g = await q("TT065", { Aasta: [a, b], Kuu: ["00"], [U.code]: U.map, Sugu: ["1"], Vanuserühm: ["1"] }, f);
+    const g = await q("TT065", { Aasta: [a, b], Kuu: ["00"], [U.code]: U.sel, Sugu: ["1"], Vanuserühm: ["1"] }, f);
     const k = (c, y) => g({ Aasta: y, Kuu: "00", [U.code]: c, Sugu: "1", Vanuserühm: "1" });
     put("reg0", U.map.map(c => k(c, a))); put("reg1", U.map.map(c => k(c, b)));
   }
@@ -103,7 +103,7 @@ export async function buildEcon(f, peersPrev, P) {
   const [e0, e1] = P.eelarve, ey = yr(e0, e1), L = ey.length - 1, nYr = e1 - e0;
   const m = await meta("RR300", f); const U = unitCodes(m, /Haldus/, names);
   const NC = ["1", "3", "9", "11", "12", "19", "22", "26", "27", "29", "32", "33", "42", "45", "46"];
-  const g = await q("RR300", { Aasta: ey, [U.code]: U.map, "Näitaja": NC }, f);
+  const g = await q("RR300", { Aasta: ey, [U.code]: U.sel, "Näitaja": NC }, f);
   const cagr = (a, b) => (a == null || b == null || a === 0 ? null : Math.pow(A(b) / A(a), 1 / nYr) - 1);
   const r3 = x => (x == null || !isFinite(x) ? null : Math.round(x * 1000) / 1000), r0 = x => (x == null || !isFinite(x) ? null : Math.round(x));
   const K = peersPrev.K;
