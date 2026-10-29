@@ -221,7 +221,7 @@ const K9=(function(){
     h.querySelector(".k9belt").innerHTML=belt();
     const ch=changed();
     h.querySelector(".k9scen span").innerHTML=`<span class="k9ctxi"><span class="k9lbl">Piirkond</span> <b>${e(NAME[S.unit])}</b></span><span class="k9ctxi"><span class="k9lbl">Periood</span> 2015–2025 mõõdetud · 2026 lähteaasta · 2027–${YN} prognoos</span><span class="k9ctxi"><span class="k9lbl">Stsenaarium</span> <b>${e(MIGL[S.mig])}</b> · režiim: ${e(modeLabel())}</span><span class="k9ctxi"><span class="k9lbl">Muudetud eeldused</span> ${ch.filter(x=>!x.startsWith("rändemuster")).length?e(ch.filter(x=>!x.startsWith("rändemuster")).join("; ")):"ei ole (baaseeldused)"}${(S.smode||"all")==="mig"&&HELD?" · hoovad ootel":""}</span>`;
-    const dd=h.querySelector(".k9dates");if(dd)dd.textContent=`Andmete seis: ${DATES.data}; ${DATES.add}. Mudel: ${DATES.model}, ${DATES.ui}.`;
+    const dd=h.querySelector(".k9dates");if(dd)dd.textContent=`Andmete seis: ${DATES.data}; ${DATES.add}. Mudel: ${DATES.model}, ${DATES.ui}.`;if(dd&&!dd.dataset.tg){dd.dataset.tg=1;dd.tabIndex=0;dd.title="Kitsal ekraanil: puuduta, et näha kogu andmete seisu";const tg=()=>{if(getComputedStyle(dd).webkitLineClamp==="none"&&!dd.classList.contains("k9open"))return;dd.classList.toggle("k9open");};dd.addEventListener("click",tg);dd.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();tg();}});}
     const rb=h.querySelector("[data-resetall]");if(rb)rb.hidden=!ch.length&&(S.smode||"all")==="all";}
   function shell(){const k=document.createElement("div");k.id="k9";
     k.innerHTML=`<a class="k9skip" href="#k9main">Liigu sisu juurde</a>
@@ -254,7 +254,7 @@ const K9=(function(){
        laienda alles siis, kui scrollY < 40 px; pärast nihet jääb asend alati samasse olekusse. */
     let sc0=false,dh=null,scRaf=0;
     const measure=()=>{const t=k.querySelector(".k9top");if(!t){dh=0;return;}const was=k.classList.contains("k9scrolled");k.classList.remove("k9scrolled");const h0=t.offsetHeight;k.classList.add("k9scrolled");const h1=t.offsetHeight;k.classList.toggle("k9scrolled",was);dh=Math.max(0,h0-h1);};
-    const scUpd=()=>{scRaf=0;if(dh==null)measure();const y=scrollY,on=sc0?y>40:y>Math.max(160,dh+80);if(on!==sc0){sc0=on;k.classList.toggle("k9scrolled",on);}};
+    const scUpd=()=>{scRaf=0;const t=k.querySelector(".k9top");if(t&&getComputedStyle(t).position!=="sticky"){if(sc0){sc0=false;k.classList.remove("k9scrolled");}return;}/* kitsal ekraanil päis ei kleepu: ahendamine ainult nihutaks sisu */if(dh==null)measure();const y=scrollY,on=sc0?y>40:y>Math.max(160,dh+80);if(on!==sc0){sc0=on;k.classList.toggle("k9scrolled",on);}};
     addEventListener("scroll",()=>{if(!scRaf)scRaf=requestAnimationFrame(scUpd);},{passive:true});
     addEventListener("resize",()=>{dh=null;});
     addEventListener("keydown",ev=>{if(ev.key==="Escape"&&tipEl)tipEl.hidden=true;});

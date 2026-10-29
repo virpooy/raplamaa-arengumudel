@@ -936,3 +936,27 @@ svg.k9trk.tgt:focus-visible{outline:2px solid var(--a-kid)}
 @media (max-width:900px){.k9paths{grid-template-columns:1fr}}
 @media print{html.k9printcard body *{visibility:hidden}html.k9printcard .k9card,html.k9printcard .k9card *{visibility:visible}html.k9printcard .k9card{position:absolute;left:0;top:0;width:100%;background:#fff;color:#000;border:0}html.k9printcard .k9card *{color:#000 !important;background:none !important}}
 .k9note code,.k9det code{word-break:break-all;white-space:normal}
+
+/* v49: kompaktne päis telefonis ja tahvlis (≤900 px). Päis ei kleepu kitsal ekraanil, seega peab see olema lühike.
+   Peidetud: alapealkiri ja rahvaarvu muutuse muster (dekoratiivne). Kontekst ühel-kahel real ilma siltideta,
+   periood peidetud (näha peatükkide joonistel). Andmete seis üherealine, puudutusega avaneb. */
+@media (max-width:900px){
+#k9 .k9top .k9wrap{gap:8px;padding-block:10px}
+#k9 .k9brand small,#k9 .k9belt{display:none}
+#k9 .k9brand svg{width:28px;height:28px}
+#k9 .k9brand b{font-size:16px}
+#k9 .k9nav{padding-top:4px}
+#k9 .k9scen{gap:6px;font-size:12px;line-height:1.35}
+#k9 .k9scen>span:first-child{display:block}
+#k9 .k9ctxi{display:inline !important;margin:0}
+#k9 .k9ctxi:nth-child(1) .k9lbl,#k9 .k9ctxi:nth-child(3) .k9lbl{display:none}
+#k9 .k9ctxi:nth-child(2){display:none !important}
+#k9 .k9ctxi:nth-child(3)::before,#k9 .k9ctxi:nth-child(4)::before{content:" · ";color:var(--dim)}
+#k9 .k9ctxi:nth-child(4) .k9lbl{letter-spacing:0;text-transform:none;font-size:12px}
+#k9 .k9ctxi:nth-child(4) .k9lbl::after{content:":"}
+#k9 .k9ctxa .k9btn{padding:3px 8px}
+#k9 .k9dates{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;font-size:11px}
+#k9 .k9dates::before{content:"▸ ";color:var(--mut)}
+#k9 .k9dates.k9open{display:block}
+#k9 .k9dates.k9open::before{content:"▾ "}
+}
