@@ -1,0 +1,78 @@
+# Seosed-peatüki andmete aastane uuendus (79 omavalitsuse ristlõige + võrdlusnäitajad RR300-st).
+# Käivitatakse käsitsi: Actions -> "Seosed: aastane uuendus" -> Run workflow.
+# Perioodid on failis econ/periood.json: uue aasta lisamiseks muuda seal aastaid enne käivitamist.
+# Tulemus läheb ALATI ülevaatusharusse, sest perioodi muutus muudab kõiki seoseid ja tõlgendusi.
+name: "Seosed: aastane uuendus"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: andmed
+  cancel-in-progress: false
+
+jobs:
+  seosed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Päri Seosed-andmed (Statistikaamet), kontrolli ja rakenda
+        id: upd
+        run: |
+          python3 tools/update.py econ
+          cat pipeline/out/summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Vead -> teade
+        if: steps.upd.outputs.nerr != '0' || steps.upd.outputs.failed != ''
+        run: |
+          gh issue create --title "Seosed: uuendamisel tekkisid vead ($(date +%F))" --body-file pipeline/out/summary.md
+          exit 1
+
+      - name: Ehita leht
+        if: steps.upd.outputs.changed == 'true'
+        run: python3 build.py
+
+      - name: Paigalda Playwright
+        if: steps.upd.outputs.changed == 'true'
+        run: |
+          pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+
+      - name: Väravatest
+        id: gate
+        if: steps.upd.outputs.changed == 'true'
+        run: |
+          set +e
+          python3 tests/t_gate.py | tee pipeline/out/gate.txt
+          echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Ülevaatusharu ja teade
+        if: steps.gate.outcome == 'success'
+        run: |
+          git config user.name "andmete-uuendus[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BR="seosed/$(date +%Y%m%d)"
+          git switch -c "$BR"
+          git add data/econ.json data/peers.json data/fetched.json econ/raw/kov79.txt index.html
+          git commit -m "Seosed: andmed uuendatud Statistikaametist ($(date +%F)), vajab ülevaatust" -m "$(cat pipeline/out/summary.md)"
+          git push -f origin "$BR"
+          GATE="Leht töötab uute andmetega (väravatest läbis)."
+          if [ "${{ steps.gate.outputs.code }}" != "0" ]; then GATE="NB: väravatest EI LÄBINUD, vaata töövoo logi enne ühendamist."; fi
+          { cat pipeline/out/summary.md; echo; echo "Muudatus on harus \`$BR\`: https://github.com/${{ github.repository }}/compare/main...$BR"; echo; echo "$GATE"; echo "Kontrolli Seosed-peatüki tõlgendusi ja silte (aastad econ/build.py tekstides). Kui kõik on korras, ühenda haru main-iga."; } > pipeline/out/issue.md
+          gh issue create --title "Seosed: uuendus vajab ülevaatust ($(date +%F))" --body-file pipeline/out/issue.md

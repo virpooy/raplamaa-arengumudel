@@ -1,4 +1,5 @@
-kov79.txt — päritud andmed.stat.ee PxWeb API (POST json-stat2) kaudu 17.10.2026 kasutaja Chrome'i vahendusel.
+kov79.txt — Statistikaameti PxWeb API (json-stat2). Esmakordselt päritud 17.10.2026; nüüd genereerib pipeline/stat_econ.mjs
+(töövoog "Seosed: aastane uuendus"), perioodid failis econ/periood.json. Kontrollitud 29.10.2026: pipeline annab faili täpselt.
 Rea indeks = peers.json rows järjekord (79 KOV, 2017. a haldusjaotus).
 Väljad: pop_tot_2019,pop_tot_2025,pop0_17_2019,pop0_17_2025,pop18_64_2019,pop18_64_2025,pop65_2019,pop65_2025 (RV0240, 1. jaanuar),
 MIG = rändesaldo (sise+välis) summa 2019–2024 (RVR02), B = elussündinud 2019–2024 (RV112U), DD = surnud 2019–2024 (RV49U),

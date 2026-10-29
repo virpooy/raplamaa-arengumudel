@@ -36,7 +36,9 @@ GitHub Actions (`.github/workflows/andmed.yml`) käivitub iga kuu 5. kuupäeval 
 - **andmed muutusid ja on hoiatusi** (uus rahvastikuaasta, Statistikaamet täpsustas vanu väärtusi, muutus andmetes, mis mõjutavad mudeli kalibreerimist: eluiga, ränne, tööhõive, kulud): muudatus läheb eraldi harusse ja avaneb teade ülevaatamiseks;
 - **andmed muutusid ilma hoiatusteta ja leht töötab** (`tests/t_gate.py`): leht avaldatakse kohe.
 
-Käsitsi käivitamine: **Actions → Andmete uuendamine → Run workflow**. Pärimise ajad on failis `data/fetched.json`.
+Käsitsi käivitamine: **Actions → Andmete uuendamine → Run workflow**.
+
+**Seosed-peatükk** (79 omavalitsuse võrdlus) uueneb eraldi töövooga **Actions → Seosed: aastane uuendus → Run workflow**, näiteks kord aastas, kui uue aasta andmed on avaldatud. Perioodid on failis `econ/periood.json`. Tulemus läheb alati ülevaatusharusse ja avaneb teade, sest perioodi muutus muudab kõiki seoseid ja tõlgendusi. Pärimise ajad on failis `data/fetched.json`.
 
 ## Andmete käsitsi uuendamine
 1. Muuda või genereeri fail kaustas `data/`.

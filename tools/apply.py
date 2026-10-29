@@ -10,7 +10,14 @@ rep = json.load(open(os.path.join(ROOT, 'pipeline', 'out', name + '.report.json'
 if rep['err']:
     sys.exit('Aruandes on vigu, andmeid ei rakendata.')
 data = json.load(open(os.path.join(ROOT, 'pipeline', 'out', name + '.json'), encoding='utf-8'))
-datafmt.write(os.path.join(ROOT, 'data', name + '.json'), data)
+if name == 'econ':
+    # Seosed: 79 omavalitsuse toorandmed + võrdlusnäitajad, seejärel econ/build.py -> data/econ.json
+    import subprocess
+    open(os.path.join(ROOT, 'econ', 'raw', 'kov79.txt'), 'w', encoding='utf-8').write(data['kov79'])
+    datafmt.write(os.path.join(ROOT, 'data', 'peers.json'), data['peers'])
+    subprocess.run([sys.executable, os.path.join(ROOT, 'econ', 'build.py')], check=True, env={**os.environ, 'ECON_FETCH': rep['fetched']})
+else:
+    datafmt.write(os.path.join(ROOT, 'data', name + '.json'), data)
 fp = os.path.join(ROOT, 'data', 'fetched.json')
 f = json.load(open(fp, encoding='utf-8')) if os.path.exists(fp) else {}
 f[name] = {'fetched': rep['fetched'], 'src': rep['src']}

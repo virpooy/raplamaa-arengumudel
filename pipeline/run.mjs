@@ -29,6 +29,26 @@ const DATASETS = {
     if (changed) { const d = new Date(); next.STAMP = `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`; }
     return { data: next, prev, src, err, warn };
   },
+  econ: async () => {
+    const m = await import("./stat_econ.mjs");
+    const peersPrev = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "peers.json"), "utf8"));
+    const kovPrev = fs.readFileSync(path.join(ROOT, "econ", "raw", "kov79.txt"), "utf8");
+    const per = JSON.parse(fs.readFileSync(path.join(ROOT, "econ", "periood.json"), "utf8"));
+    const { rows, peers } = await m.buildEcon(fetch, peersPrev, per);
+    const err = [], warn = [];
+    // kov79: väärtus ei tohi kaduda (varem olemas, nüüd puudub)
+    const old = kovPrev.trim().split("\n").map(l => l.split(":")[1].split(","));
+    rows.forEach((r, i) => m.KOV79_FIELDS.forEach((f, j) => { if (old[i] && old[i][j] !== "" && r[f] == null) err.push(`${peersPrev.R[i][0]}: ${f} puudub (varem ${old[i][j]})`); }));
+    // võrdlusnäitajad: puuduv uus väärtus -> jääb eelmine, hoiatus
+    peers.R.forEach((r, i) => peersPrev.K.forEach((k, j) => { if (r[j + 1] == null && peersPrev.R[i][j + 1] != null) { r[j + 1] = peersPrev.R[i][j + 1]; warn.push(`${r[0]}: ${k} ei õnnestunud uuendada, jääb eelmine väärtus ${peersPrev.R[i][j + 1]}`); } }));
+    warn.push("refi ja finKordaja arvutuskäik on teadmata: need jäävad eelmisest versioonist (vt data/ALLIKAD.md)");
+    const kovNew = m.kov79Text(rows);
+    let nk = 0; kovNew.trim().split("\n").forEach((l, i) => { const a = l.split(":")[1].split(","); a.forEach((x, j) => { if (!old[i] || old[i][j] !== x) nk++; }); });
+    let np = 0; peers.R.forEach((r, i) => r.forEach((x, j) => { if (j && x !== peersPrev.R[i][j]) np++; }));
+    warn.push(`Seosed-andmestik: muutunud väärtusi ${nk} (79 omavalitsuse andmestik) ja ${np} (võrdlusnäitajad); perioodid ${JSON.stringify(per, (k, v) => (k === "_selgitus" ? undefined : v))}. Vaata Seosed-peatüki tulemused ja tõlgendused üle.`);
+    const data = { kov79: kovNew, peers }, prev = { kov79: kovPrev, peers: peersPrev };
+    return { data, prev, src: { periood: per }, err, warn };
+  },
 };
 
 const name = process.argv[2];

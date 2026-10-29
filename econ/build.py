@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """Ökonomeetria · korrelatsioonid: 79 omavalitsuse ristlõike andmestik kanga jaoks.
-Sisend: raw/kov79.txt (Statistikaamet, päritud 17.10.2026 PxWeb API kaudu), ../peers.json (kanga Eesti võrdlus, RR300 2021–2025).
+Sisend: raw/kov79.txt ja ../data/peers.json (mõlemad: pipeline/stat_econ.mjs, Statistikaamet; perioodid econ/periood.json).
 Väljund: ../data/econ.json (window.ECON), out/econ79.csv. Puuduvaid väärtusi ei asendata (None -> null)."""
 import sys,json, math, os, csv
 D = os.path.dirname(os.path.abspath(__file__))
-FETCH = "2026-10-17"
-P = json.load(open(os.path.join(D, "..", "peers.json")))
+FETCH = os.environ.get("ECON_FETCH", "2026-10-17")  # pärimise kuupäev (aastane uuendus annab selle ette)
+_PE = json.load(open(os.path.join(D, "..", "data", "peers.json"), encoding="utf-8"))  # võrdlusnäitajad RR300-st (pipeline/stat_econ.mjs)
+P = {"K": _PE["K"], "rows": [[r[0], r[1:]] for r in _PE["R"]]}
 KOV = [r[0] for r in P["rows"]]
 PK = P["K"]
 F = ['p19','p25','c19','c25','w19','w25','o19','o25','MIG','B','DD','uan19','uan24','uae19','uae24','wg21','wg25','em21','em25','ent25','dli19','dli25','reg19','reg25']
@@ -133,6 +134,6 @@ with open(os.path.join(D,"out","econ79.csv"),"w",newline="",encoding="utf-8") as
         cols.append((v["k"]+"_"+str(v["y1"]),v["v1"]))
     w.writerow(["omavalitsus","maakond"]+[c[0] for c in cols])
     for i in rng: w.writerow([KOV[i],cty[i]]+["" if c[1][i] is None else c[1][i] for c in cols])
-print("vars",len(V),"pop diff",[(KOV[i],p25p[i],R[i]['p25']) for i in diff], "bytes",len(js))
+print("vars",len(V),"pop diff",[(KOV[i],p25p[i],R[i]['p25']) for i in diff], "bytes",os.path.getsize(os.path.join(D,"..","data","econ.json")))
 for v in V:
     miss=sum(1 for z in v["v1"] if z is None); print(f"{v['k']:9s} n={79-miss:2d} min={min(z for z in v['v1'] if z is not None):.2f} max={max(z for z in v['v1'] if z is not None):.2f}")

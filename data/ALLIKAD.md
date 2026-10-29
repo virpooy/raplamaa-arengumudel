@@ -20,10 +20,10 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 | `geo.json` | Valdade piirid ja asulad joonistamiseks (SVG teed, keskpunktid) | Maa- ja Ruumiamet, EHAK (haldusjaotus 01.01.2018) | käsitsi, muutub harva |
 | `bud.json` | Valdade eelarvestrateegiad ja 2026. aasta eelarved; igal real `doc`, `act`, `url` | Valdade eelarvestrateegiad, eelarved, seletuskirjad | käsitsi |
 | `edu.json` | Õpilased, koolid, lasteaiad, toetusfond | EHIS / Haridussilm, toetusfondi arvestus | käsitsi / pool |
-| `peers.json` | Võrdlusomavalitsuste finants- ja rahvastikunäitajad (`K` = näitajad, `R` = read) | Koostatud failist `peers.txt` (väljaspool repot); päritolu tuleb dokumenteerida | käsitsi |
+| `peers.json` | Võrdlusomavalitsuste (79) eelarve- ja rahvastikunäitajad (`K` = näitajad, `R` = read) | Statistikaamet RR300 (perioodi tulud, kulud, tulem, investeeringud, laenud) ja RV0240; arvutuskäik `pipeline/stat_econ.mjs`, taastatud ja kontrollitud 29.10.2026 olemasolevate väärtuste vastu. `refi` ja `finKordaja` arvutuskäiku ei õnnestunud taastada: need jäävad uuendamisel eelmisest versioonist | **pool**: töövoog „Seosed: aastane uuendus” |
 | `ext.json` | Lisaandmed, vt allpool | mitu | Statistikaameti osad **auto**: `pipeline/stat_ext.mjs`, igakuine; ülejäänud käsitsi |
 | `db.json` | Raplamaa andmebaas 2016–2026: kirjed allika, perioodi ja kontrolliga (skeem: `data2/SCHEMA.md` algses töökaustas) | Genereeritud `data2/build_db.py`, 11.10.2026 | generaator väljaspool repot |
-| `econ.json` | Seosed: 79 omavalitsuse ristlõige | Genereeritud `econ/build.py` (Statistikaamet, mitu tabelit) | auto |
+| `econ.json` | Seosed: 79 omavalitsuse ristlõige | `econ/build.py` failidest `econ/raw/kov79.txt` (`pipeline/stat_econ.mjs`: RV0240, RVR02, RV112U, RV49U, UA08, PA107, ER0320, RV06U, TT065) ja `peers.json`; perioodid `econ/periood.json` | **pool**: töövoog „Seosed: aastane uuendus”, alati ülevaatusele |
 | `too.json` | Tööturu peatükk (TT4645 jt) | Genereeritud `toostat/build.py` (väljaspool repot) | auto |
 | `mkm.json` | MKM töövaldkonna uuringute register ja Raplamaa leiud | Genereeritud `mkm/gen_mkm.py` (väljaspool repot) | käsitsi |
 
@@ -48,6 +48,6 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 
 ## Teadaolevad lüngad
 
-- `peers.json` päritolu ei ole failis dokumenteeritud.
+- `peers.json`: näitajate `refi` (refinantseerimise aastad) ja `finKordaja` (finantskulude kasv) arvutuskäiku ei õnnestunud olemasolevatest väärtustest taastada.
 - `db.json`, `too.json` ja `mkm.json` generaatorid on veel algses töökaustas, mitte repos. Need tuuakse repo `pipeline/` kausta järgmises etapis koos Statistikaameti pärimisskriptidega.
 - Mudeli tööhõive baas `EMPB` on koodis kirjas arvuna. Andmete uuenemisel peaks see arvutuma `EMPR`-ist.
