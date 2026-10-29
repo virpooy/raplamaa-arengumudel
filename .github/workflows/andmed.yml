@@ -1,5 +1,5 @@
 # Andmete automaatne uuendamine.
-# Iga kuu pärib Statistikaametist värsked andmed, kontrollib neid ja:
+# Iga kuu pärib Statistikaametist värsked andmed (pop = rahvastik, ext = lisaandmed), kontrollib neid ja:
 #   - muutusi ei ole                       -> midagi ei juhtu
 #   - vead (puuduvad väärtused, summad)    -> andmeid ei rakendata, avatakse teade (issue)
 #   - muutused + hoiatused (uus aasta, Statistikaamet täpsustas vanu väärtusi)
@@ -28,7 +28,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  pop:
+  andmed:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -44,46 +44,31 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Päri rahvastikuandmed (Statistikaamet)
-        id: fetch
+      - name: Päri andmed (Statistikaamet), kontrolli ja rakenda korras andmestikud
+        id: upd
         run: |
-          set +e
-          node pipeline/run.mjs pop
-          echo "code=$?" >> "$GITHUB_OUTPUT"
+          python3 tools/update.py pop ext
+          cat pipeline/out/summary.md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Kokkuvõte
-        id: sum
+      - name: Vead andmetes -> teade, midagi ei avaldata
+        if: steps.upd.outputs.nerr != '0'
         run: |
-          python3 tools/summary.py pop
-          cat pipeline/out/pop.summary.md >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Pärimine ebaõnnestus
-        if: steps.fetch.outputs.code == '1'
-        run: |
-          echo "Statistikaameti päring ebaõnnestus (võrguviga või API muutus). Andmeid ei muudetud."
+          gh issue create --title "Andmete uuendamine: andmetes on vigu ($(date +%F))" --body-file pipeline/out/summary.md
           exit 1
 
-      - name: Vead andmetes -> teade, andmeid ei rakendata
-        if: steps.fetch.outputs.code == '2'
-        run: |
-          gh issue create --title "Andmete uuendamine: rahvastikuandmetes on vigu ($(date +%F))" --body-file pipeline/out/pop.summary.md
-          exit 1
-
-      - name: Rakenda andmed ja ehita leht
-        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
-        run: |
-          python3 tools/apply.py pop
-          python3 build.py
+      - name: Ehita leht
+        if: steps.upd.outputs.nerr == '0' && steps.upd.outputs.changed == 'true'
+        run: python3 build.py
 
       - name: Paigalda Playwright
-        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
+        if: steps.upd.outputs.nerr == '0' && steps.upd.outputs.changed == 'true'
         run: |
           pip install playwright==1.56.0
           python -m playwright install --with-deps chromium
 
       - name: Väravatest (leht peab töötama)
         id: gate
-        if: steps.fetch.outputs.code == '0' && steps.sum.outputs.changed == 'true'
+        if: steps.upd.outputs.nerr == '0' && steps.upd.outputs.changed == 'true'
         run: |
           set +e
           python3 tests/t_gate.py | tee pipeline/out/gate.txt
@@ -92,8 +77,8 @@ jobs:
       - name: Leht ei tööta uute andmetega -> teade
         if: steps.gate.outcome == 'success' && steps.gate.outputs.code == '1'
         run: |
-          { cat pipeline/out/pop.summary.md; echo; echo "### Väravatest ei läbinud"; echo '```'; tail -40 pipeline/out/gate.txt; echo '```'; } > pipeline/out/issue.md
-          gh issue create --title "Andmete uuendamine: leht ei tööta uute rahvastikuandmetega ($(date +%F))" --body-file pipeline/out/issue.md
+          { cat pipeline/out/summary.md; echo; echo "### Väravatest ei läbinud"; echo '```'; tail -40 pipeline/out/gate.txt; echo '```'; } > pipeline/out/issue.md
+          gh issue create --title "Andmete uuendamine: leht ei tööta uute andmetega ($(date +%F))" --body-file pipeline/out/issue.md
           exit 1
 
       - name: Salvesta (otse või ülevaatamiseks)
@@ -101,16 +86,23 @@ jobs:
         run: |
           git config user.name "andmete-uuendus[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/pop.json data/fetched.json index.html
-          if [ "${{ steps.sum.outputs.nwarn }}" = "0" ] && [ "${{ inputs.force_review }}" != "true" ]; then
-            git commit -m "Andmed: rahvastik uuendatud Statistikaametist ($(date +%F))" -m "$(cat pipeline/out/pop.summary.md)"
+          git add data/*.json index.html
+          MSG="Andmed uuendatud Statistikaametist: ${{ steps.upd.outputs.changed_list }} ($(date +%F))"
+          if [ "${{ steps.upd.outputs.nwarn }}" = "0" ] && [ "${{ inputs.force_review }}" != "true" ]; then
+            git commit -m "$MSG" -m "$(cat pipeline/out/summary.md)"
             git push origin HEAD:main
             echo "Avaldatud otse." >> "$GITHUB_STEP_SUMMARY"
           else
-            BR="andmeuuendus/pop-$(date +%Y%m%d)"
+            BR="andmeuuendus/$(date +%Y%m%d)"
             git switch -c "$BR"
-            git commit -m "Andmed: rahvastik uuendatud Statistikaametist ($(date +%F)), vajab ülevaatust" -m "$(cat pipeline/out/pop.summary.md)"
+            git commit -m "$MSG, vajab ülevaatust" -m "$(cat pipeline/out/summary.md)"
             git push -f origin "$BR"
-            { cat pipeline/out/pop.summary.md; echo; echo "Muudatus on harus \`$BR\`: https://github.com/${{ github.repository }}/compare/main...$BR"; echo; echo "Leht töötab uute andmetega (väravatest läbis). Kui kõik on korras, ühenda haru main-iga."; } > pipeline/out/issue.md
-            gh issue create --title "Andmete uuendamine: rahvastik vajab ülevaatust ($(date +%F))" --body-file pipeline/out/issue.md
+            { cat pipeline/out/summary.md; echo; echo "Muudatus on harus \`$BR\`: https://github.com/${{ github.repository }}/compare/main...$BR"; echo; echo "Leht töötab uute andmetega (väravatest läbis). Kui kõik on korras, ühenda haru main-iga."; } > pipeline/out/issue.md
+            gh issue create --title "Andmete uuendamine vajab ülevaatust ($(date +%F))" --body-file pipeline/out/issue.md
           fi
+
+      - name: Mõne andmestiku pärimine ebaõnnestus
+        if: always() && steps.upd.outputs.failed != ''
+        run: |
+          echo "Pärimine ebaõnnestus: ${{ steps.upd.outputs.failed }}. Need andmed jäid muutmata."
+          exit 1

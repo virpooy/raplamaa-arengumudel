@@ -30,10 +30,10 @@ Avaldatav leht (`index.html`) on salasõnaga krüpteeritud, kui repos on fail `l
 - `tools/datafmt.py`: andmefailide ühtne vorming, et git-i erinevused oleksid loetavad.
 
 ## Andmete automaatne uuendamine
-GitHub Actions (`.github/workflows/andmed.yml`) käivitub iga kuu 5. kuupäeval ja pärib Statistikaametist värsked rahvastikuandmed (`pipeline/stat_pop.mjs`). Seejärel:
+GitHub Actions (`.github/workflows/andmed.yml`) käivitub iga kuu 5. kuupäeval ja pärib Statistikaametist värsked andmed: rahvastik (`pipeline/stat_pop.mjs` → `data/pop.json`) ja lisaandmed (`pipeline/stat_ext.mjs` → `data/ext.json`: prognoos, Eesti rahvastik, oodatav eluiga, ränne, eluruumid, kulud tegevusalade kaupa, SKP, tööhõive). Juhtskript on `tools/update.py`. Seejärel:
 - **muutusi ei ole:** midagi ei juhtu;
 - **andmetes on vigu** (puuduv väärtus, summad ei klapi): andmeid ei rakendata ja avaneb teade (Issues);
-- **andmed muutusid ja on hoiatusi** (uus aasta, Statistikaamet täpsustas vanu väärtusi): muudatus läheb eraldi harusse ja avaneb teade ülevaatamiseks;
+- **andmed muutusid ja on hoiatusi** (uus rahvastikuaasta, Statistikaamet täpsustas vanu väärtusi, muutus andmetes, mis mõjutavad mudeli kalibreerimist: eluiga, ränne, tööhõive, kulud): muudatus läheb eraldi harusse ja avaneb teade ülevaatamiseks;
 - **andmed muutusid ilma hoiatusteta ja leht töötab** (`tests/t_gate.py`): leht avaldatakse kohe.
 
 Käsitsi käivitamine: **Actions → Andmete uuendamine → Run workflow**. Pärimise ajad on failis `data/fetched.json`.

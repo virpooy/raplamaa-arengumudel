@@ -21,7 +21,7 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 | `bud.json` | Valdade eelarvestrateegiad ja 2026. aasta eelarved; igal real `doc`, `act`, `url` | Valdade eelarvestrateegiad, eelarved, seletuskirjad | käsitsi |
 | `edu.json` | Õpilased, koolid, lasteaiad, toetusfond | EHIS / Haridussilm, toetusfondi arvestus | käsitsi / pool |
 | `peers.json` | Võrdlusomavalitsuste finants- ja rahvastikunäitajad (`K` = näitajad, `R` = read) | Koostatud failist `peers.txt` (väljaspool repot); päritolu tuleb dokumenteerida | käsitsi |
-| `ext.json` | Lisaandmed, vt allpool | mitu | segamini |
+| `ext.json` | Lisaandmed, vt allpool | mitu | Statistikaameti osad **auto**: `pipeline/stat_ext.mjs`, igakuine; ülejäänud käsitsi |
 | `db.json` | Raplamaa andmebaas 2016–2026: kirjed allika, perioodi ja kontrolliga (skeem: `data2/SCHEMA.md` algses töökaustas) | Genereeritud `data2/build_db.py`, 11.10.2026 | generaator väljaspool repot |
 | `econ.json` | Seosed: 79 omavalitsuse ristlõige | Genereeritud `econ/build.py` (Statistikaamet, mitu tabelit) | auto |
 | `too.json` | Tööturu peatükk (TT4645 jt) | Genereeritud `toostat/build.py` (väljaspool repot) | auto |

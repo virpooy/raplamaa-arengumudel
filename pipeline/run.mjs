@@ -16,6 +16,19 @@ const DATASETS = {
     const { err, warn } = m.checkPop(pop, prev);
     return { data: pop, prev, src, err, warn };
   },
+  ext: async () => {
+    const m = await import("./stat_ext.mjs");
+    const prev = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "ext.json"), "utf8"));
+    const pop = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "pop.json"), "utf8"));
+    const { ext, src } = await m.buildExt(fetch, pop);
+    const { err, warn } = m.checkExt(ext, prev);
+    // asenda ainult päritud osad; staatilised (URP, MJ, DW, COM) ja võtmete järjekord jäävad
+    const next = {};
+    for (const k of Object.keys(prev)) next[k] = k in ext ? ext[k] : prev[k];
+    const changed = Object.keys(ext).some(k => JSON.stringify(ext[k]) !== JSON.stringify(prev[k]));
+    if (changed) { const d = new Date(); next.STAMP = `${String(d.getDate()).padStart(2, "0")}.${String(d.getMonth() + 1).padStart(2, "0")}.${d.getFullYear()}`; }
+    return { data: next, prev, src, err, warn };
+  },
 };
 
 const name = process.argv[2];
