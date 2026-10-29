@@ -2,7 +2,8 @@
 // Sama kood töötab Node'is (GitHub Actions) ja brauseris (käsitsi kontroll), seepärast ainult fetch ja puhas JS.
 //
 // Tabelid:
-//   RV0240  rahvastik soo, vanuse ja elukoha järgi, 1. jaanuar  -> age (18 viieaastast rühma), tot
+//   RV0282U rahvastik soo, vanuserühma ja elukoha järgi, 1. jaanuar -> age (18 viieaastast rühma), tot
+//           (NB: RV0240 üksikaastate summa erineb rühmas 85+ mõne inimese võrra; kangas on algusest RV0282U)
 //   RV112U  elussündinud haldusüksuse järgi                      -> b
 //   RV49U   surnud haldusüksuse järgi                            -> d
 //   RVR02   ränne haldusüksuse ja rände liigi järgi               -> mi, mo (sise+välis), miE, moE (välis)
@@ -13,7 +14,7 @@ export const API = "https://andmed.stat.ee/api/v1/et/stat/";
 
 // haldusüksuste koodid tabeliti (2017. aasta haldusreformi järgsed piirid)
 export const UNITS = {
-  RV0240: { MAAK: "70", Rapla: "669", Kohila: "317", Marjamaa: "504", Kehtna: "292" },
+  RV0282U: { MAAK: "70", Rapla: "669", Kohila: "317", Marjamaa: "504", Kehtna: "292" },
   RVR02:  { MAAK: "70", Rapla: "669", Kohila: "317", Marjamaa: "504", Kehtna: "292" },
   RV112U: { MAAK: "123", Rapla: "127", Kohila: "125", Marjamaa: "126", Kehtna: "124" },
   RV49U:  { MAAK: "123", Rapla: "127", Kohila: "125", Marjamaa: "126", Kehtna: "124" },
@@ -63,32 +64,22 @@ export async function buildPop(fetchFn = fetch) {
   ORDER.forEach(u => (out[u] = { age: {}, tot: {}, b: [], d: [], mi: [], mo: [], miE: [], moE: [] }));
   const src = {};
 
-  // 1. rahvastik 1. jaanuar
-  const m0 = await meta("RV0240", fetchFn);
+  // 1. rahvastik 1. jaanuar (viieaastased rühmad)
+  const m0 = await meta("RV0282U", fetchFn);
   const yA = yearsOf(m0);
-  const ages = [];
-  for (let a = 0; a <= 84; a++) ages.push(String(a));
-  const AGE85 = "DBL103"; // 85 ja vanemad
-  const g0 = await query("RV0240", { Sugu: ["1"], Elukoht: Object.values(UNITS.RV0240), Aasta: yA, Vanus: ["000", ...ages, AGE85] }, fetchFn);
-  for (const u of ORDER) {
-    for (const y of yA) {
-      const key = { Sugu: "1", Elukoht: UNITS.RV0240[u], Aasta: y };
-      const grp = [];
-      for (let gi = 0; gi < 17; gi++) {
-        let s = 0;
-        for (let a = gi * 5; a < gi * 5 + 5; a++) {
-          const v = g0({ ...key, Vanus: String(a) });
-          if (v === null) { s = null; break; }
-          s += v;
-        }
-        grp.push(s);
-      }
-      grp.push(g0({ ...key, Vanus: AGE85 }));
-      out[u].age[y] = grp;
-      out[u].tot[y] = g0({ ...key, Vanus: "000" });
-    }
+  const vg = m0.variables.find(v => /Vanus/.test(v.code));
+  const codeOf = re => { const i = vg.valueTexts.findIndex(t => re.test(t)); if (i < 0) throw new Error("RV0282U: vanuserühm puudub " + re); return vg.values[i]; };
+  const GR = [];
+  for (let a = 0; a < 85; a += 5) GR.push(codeOf(new RegExp("^" + a + "-" + (a + 4) + "$")));
+  GR.push(codeOf(/^85 ja vanemad$/));
+  const TOT = codeOf(/kokku/i);
+  const g0 = await query("RV0282U", { Sugu: ["1"], Elukoht: Object.values(UNITS.RV0282U), Aasta: yA, [vg.code]: [TOT, ...GR] }, fetchFn);
+  for (const u of ORDER) for (const y of yA) {
+    const key = { Sugu: "1", Elukoht: UNITS.RV0282U[u], Aasta: y };
+    out[u].age[y] = GR.map(c => g0({ ...key, [vg.code]: c }));
+    out[u].tot[y] = g0({ ...key, [vg.code]: TOT });
   }
-  src.RV0240 = { years: [yA[0], yA[yA.length - 1]], updated: m0.updated || null };
+  src.RV0282U = { years: [yA[0], yA[yA.length - 1]], updated: m0.updated || null };
 
   // 2. sünnid ja surmad
   for (const [t, f] of [["RV112U", "b"], ["RV49U", "d"]]) {
@@ -127,20 +118,22 @@ export function checkPop(pop, prev) {
     for (const y of years) {
       if (pop[u].tot[y] == null) err.push(`${u} ${y}: rahvaarv puudub`);
       if (pop[u].age[y].some(x => x == null)) err.push(`${u} ${y}: vanuserühm puudub`);
-      const s = pop[u].age[y].reduce((a, b) => a + b, 0);
-      if (s !== pop[u].tot[y]) err.push(`${u} ${y}: vanuserühmade summa ${s} ≠ kokku ${pop[u].tot[y]}`);
+      // Statistikaameti kogusumma ja rühmade summa võivad avaldamiskaitse tõttu erineda mõne inimese võrra
+      const s = pop[u].age[y].reduce((a, b) => a + b, 0), dd = Math.abs(s - pop[u].tot[y]);
+      if (dd > 10) err.push(`${u} ${y}: vanuserühmade summa ${s} ≠ kokku ${pop[u].tot[y]}`);
+      else if (dd > 5) warn.push(`${u} ${y}: vanuserühmade summa ${s} vs kokku ${pop[u].tot[y]}`);
     }
     for (const f of ["b", "d", "mi", "mo", "miE", "moE"]) if (pop[u][f].some(x => x == null)) err.push(`${u}: ${f} sisaldab puuduvat väärtust`);
   }
   // vallad kokku = maakond
   for (const y of years) {
     const s = V.reduce((a, v) => a + pop[v].tot[y], 0);
-    if (s !== pop.MAAK.tot[y]) err.push(`${y}: valdade summa ${s} ≠ maakond ${pop.MAAK.tot[y]}`);
+    if (Math.abs(s - pop.MAAK.tot[y]) > 10) err.push(`${y}: valdade summa ${s} ≠ maakond ${pop.MAAK.tot[y]}`);
   }
   for (const f of ["b", "d", "mi", "mo", "miE", "moE"]) pop.MAAK[f].forEach((m, i) => {
     const s = V.reduce((a, v) => a + pop[v][f][i], 0);
     // ränne: valdade summa sisaldab maakonnasisest rännet, seega võib olla maakonnast suurem
-    if (/^(b|d)$/.test(f) && s !== m) err.push(`${f} ${Y0 + i}: valdade summa ${s} ≠ maakond ${m}`);
+    if (/^(b|d)$/.test(f) && Math.abs(s - m) > 5) err.push(`${f} ${Y0 + i}: valdade summa ${s} ≠ maakond ${m}`);
   });
   // demograafiline tasakaal: tot(y+1) ≈ tot(y) + b - d + mi - mo
   for (const u of ORDER.slice(1)) for (let i = 0; i < years.length - 1; i++) {
