@@ -5,6 +5,7 @@
 #   - muutused + hoiatused (uus aasta, Statistikaamet täpsustas vanu väärtusi)
 #                                          -> muudatus läheb eraldi harusse ülevaatamiseks, avatakse teade
 #   - muutused ilma hoiatusteta, leht töötab -> avaldatakse kohe (commit main-i, GitHub Pages uuendab lehe)
+# NB: vahele jäetud sammu väljund on tühi ja GitHubi võrdluses tühi == '0', seega kontrollime ka steps.<id>.outcome.
 # Käsitsi käivitamine: Actions -> "Andmete uuendamine" -> Run workflow.
 name: Andmete uuendamine
 
@@ -33,13 +34,13 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "22"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -89,14 +90,14 @@ jobs:
           echo "code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
 
       - name: Leht ei tööta uute andmetega -> teade
-        if: steps.gate.outputs.code == '1'
+        if: steps.gate.outcome == 'success' && steps.gate.outputs.code == '1'
         run: |
           { cat pipeline/out/pop.summary.md; echo; echo "### Väravatest ei läbinud"; echo '```'; tail -40 pipeline/out/gate.txt; echo '```'; } > pipeline/out/issue.md
           gh issue create --title "Andmete uuendamine: leht ei tööta uute rahvastikuandmetega ($(date +%F))" --body-file pipeline/out/issue.md
           exit 1
 
       - name: Salvesta (otse või ülevaatamiseks)
-        if: steps.gate.outputs.code == '0'
+        if: steps.gate.outcome == 'success' && steps.gate.outputs.code == '0'
         run: |
           git config user.name "andmete-uuendus[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
