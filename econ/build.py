@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Ökonomeetria · korrelatsioonid: 79 omavalitsuse ristlõike andmestik kanga jaoks.
 Sisend: raw/kov79.txt (Statistikaamet, päritud 17.10.2026 PxWeb API kaudu), ../peers.json (kanga Eesti võrdlus, RR300 2021–2025).
-Väljund: ../k9/k9econ_data.js (window.ECON), out/econ79.csv. Puuduvaid väärtusi ei asendata (None -> null)."""
-import json, math, os, csv
+Väljund: ../data/econ.json (window.ECON), out/econ79.csv. Puuduvaid väärtusi ei asendata (None -> null)."""
+import sys,json, math, os, csv
 D = os.path.dirname(os.path.abspath(__file__))
 FETCH = "2026-10-17"
 P = json.load(open(os.path.join(D, "..", "peers.json")))
@@ -122,8 +122,9 @@ META = {"fetched":FETCH,"n":79,"border":"2017. aasta haldusreformi järgne jaotu
         "upd":{"RV0240":"2026-06","RVR02":"2026-05","RV112U":"2026-05","RV49U":"2026-05","UA08":"2026-02-12","PA107":"2026-03-05","ER0320":"2026-01-20","RV06U":"2026-05-19","TT065":"2026-10-14","IA002":"2026-10","RR300":"2026-06-16"},
         "popCheck":"Rahvaarv 2025: Statistikaameti RV0240 ja kanga Eesti võrdluse (RR300 tabelis kasutatud) väärtused kattuvad "+("kõigil 79-l" if not diff else f"{79-len(diff)}/79 omavalitsusel")}
 out = {"meta":META,"kov":KOV,"cty":cty,"cpi":CPI,"src":SRC,"groups":GROUPS,"vars":V,"need":NEED}
-js = "/* Ökonomeetria · korrelatsioonid: 79 omavalitsuse andmestik. Genereeritud econ/build.py, "+FETCH+". */\nwindow.ECON="+json.dumps(out,ensure_ascii=False,separators=(",",":"))+";\n"
-open(os.path.join(D,"..","k9","k9econ_data.js"),"w",encoding="utf-8").write(js)
+# väljund: data/econ.json (build.py paneb selle lehele kohatäitja /*@data econ*/ asemele)
+sys.path.insert(0,os.path.join(D,"..","tools"));import datafmt
+datafmt.write(os.path.join(D,"..","data","econ.json"),out)
 os.makedirs(os.path.join(D,"out"),exist_ok=True)
 with open(os.path.join(D,"out","econ79.csv"),"w",newline="",encoding="utf-8") as f:
     w=csv.writer(f);cols=[];

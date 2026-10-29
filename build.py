@@ -1,4 +1,4 @@
-"""Ehitab index.html failidest src/base.html ja src/k9/*. Käivita: python3 build.py"""
+"""Ehitab index.html failidest src/base.html, src/k9/* ja data/*.json. Käivita: python3 build.py"""
 import re,sys,os
 ROOT=os.path.dirname(os.path.abspath(__file__));D=os.path.join(ROOT,'src','k9')
 s=open(os.path.join(ROOT,'src','base.html'),encoding='utf-8').read()
@@ -11,9 +11,7 @@ i=s.find('</head>');s=s[:i]+('<meta name="viewport" content="width=device-width,
 i=s.rfind('</style>');s=s[:i]+'\n'+open(D+'/k9.css',encoding='utf-8').read()+'\n'+s[i:]
 r('<div class="wrap">','<div class="wrap" aria-hidden="true" inert>')
 # v35: tööhõive hoob ankurdatud Raplamaa tasemele (TT4661, 15–74, 2023–2025 keskmine 64,1%); valemi suhteline loogika ei muutu
-EMPR='{2015:64.6,2016:62.8,2017:64,2018:66.7,2019:66.1,2020:67,2021:61.6,2022:66.3,2023:64.8,2024:64,2025:63.4}'
-EMPE='{2015:65.2,2016:65.6,2017:67.5,2018:68.1,2019:68.4,2020:66.7,2021:66.7,2022:69.2,2023:69.2,2024:68.9,2025:68.5}'
-r(' EMP:{2023:69.2,2024:68.9,2025:68.5},',' EMP:{2023:69.2,2024:68.9,2025:68.5},EMPR:'+EMPR+',EMPE:'+EMPE+',')
+# EMPR (Raplamaa, TT4661) ja EMPE (Eesti, TT0151) on failis data/ext.json
 r('const VX={};const S={','const EMPB=64.1;const VX={};const S={')
 r('fertTr:"const",mort:"const",emp:68.5};','fertTr:"const",mort:"const",emp:EMPB};')
 r('(S.emp!==68.5?` · tööhõive','(S.emp!==EMPB?` · tööhõive')
@@ -28,4 +26,13 @@ s=re.sub(r'<title>[^<]*</title>','<title>Raplamaa arengukangas</title>',s,count=
 JS=['k9core.js','k9chart.js','k9prov.js','k9db.js','k9data.js','k9tree.js','k9over.js','k9pop.js','k9svc.js','k9setl.js','k9atlas.js','k9fin.js','k9re27.js','k9cmp.js','k9rest.js','k9mkm_data.js','k9mkm.js','k9too_data.js','k9too.js','k9map.js','k9econ_data.js','k9econ.js','k9unc.js','k9plan.js']
 js='\n'.join(open(D+'/'+f,encoding='utf-8').read() for f in JS if os.path.exists(D+'/'+f))
 i=s.rfind('</script>');s=s[:i]+'\n'+js+'\ntry{K9.init();}catch(err){console.error(err);document.body.insertAdjacentHTML("afterbegin","<p style=\\"padding:20px;color:#fff;background:#600\\">Uue kasutajaliidese käivitamine ebaõnnestus: "+err.message+"</p>");document.querySelector("body>.wrap").removeAttribute("inert");}\n'+s[i:]
-open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write(s);print('ok',len(s))
+# andmed: iga kohatäitja /*@data NIMI*/null asendatakse failiga data/NIMI.json (kompaktne JSON)
+import json
+def _data(m):
+    n=m.group(1);p=os.path.join(ROOT,'data',n+'.json')
+    v=json.load(open(p,encoding='utf-8'))
+    return json.dumps(v,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+_n=len(re.findall(r'/\*@data ([a-z0-9_]+)\*/null',s))
+s=re.sub(r'/\*@data ([a-z0-9_]+)\*/null',_data,s)
+assert '/*@data' not in s
+open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write(s);print('andmefaile:',_n);print('ok',len(s))
