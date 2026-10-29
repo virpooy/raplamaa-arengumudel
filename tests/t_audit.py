@@ -1,5 +1,5 @@
 import os
-ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/index.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/build/kangas.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
 import asyncio,json,sys,re
 from playwright.async_api import async_playwright
 VIEWS=sys.argv[2].split(",") if len(sys.argv)>2 else ["ylevaade","rahvastik","teenused","eluase","eelarve","stsenaariumid","seosed","eesmargid","andmed","atlas","vordlus"]

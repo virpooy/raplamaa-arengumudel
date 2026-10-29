@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Salasõna seadistamine</title>
+<style>
+:root{--bg:#13152B;--bg2:#1B1E3A;--ink:#F3EFE4;--mut:#A9ABC6;--line:#2D3158;--acc:#F2C94C;--err:#FF7D6D;--ok:#4FD6A8}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:32px 16px;display:flex;flex-direction:column;gap:16px}
+h1{margin:0;font-size:22px}
+p,li{color:var(--mut);font-size:14px;margin:0}
+ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+form,.out{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
+label{font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:6px}
+input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+button{font:600 15px system-ui,sans-serif;color:var(--bg);background:var(--acc);border:0;border-radius:8px;padding:10px 14px;cursor:pointer;align-self:flex-start}
+button:disabled{opacity:.6;cursor:wait}
+textarea{width:100%;min-height:150px;font:12px/1.4 ui-monospace,monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;word-break:break-all}
+#msg{font-size:13px;color:var(--err);min-height:1.2em}
+.ok{color:var(--ok)!important}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <h1>Arengukanga salasõna seadistamine</h1>
+  <ol>
+    <li>Vali salasõna (vähemalt 12 märki; hea on mitmest sõnast lause).</li>
+    <li>Vajuta <b>Loo lukk</b>. Kõik toimub sinu brauseris: salasõna ei saadeta kuhugi.</li>
+    <li>Kopeeri tekkinud lukk ja kleebi see Claude'ile. Lukk ise ei sisalda salasõna.</li>
+  </ol>
+  <p>Kui salasõna ununeb, ei saa seda taastada. Siis loo uus lukk: leht lukustatakse järgmisel ehitusel uue salasõnaga.</p>
+  <form id="f">
+    <input type="text" name="username" value="arengukangas" autocomplete="username" hidden>
+    <label>Uus salasõna<input type="password" id="p1" autocomplete="new-password" minlength="12" required></label>
+    <label>Korda salasõna<input type="password" id="p2" autocomplete="new-password" minlength="12" required></label>
+    <button id="go" type="submit">Loo lukk</button>
+    <div id="msg" role="status" aria-live="polite"></div>
+  </form>
+  <div class="out" id="out" hidden>
+    <p class="ok">Lukk on valmis ja kontrollitud: see avaneb sinu salasõnaga.</p>
+    <textarea id="lock" readonly aria-label="Lukk"></textarea>
+    <button id="copy" type="button">Kopeeri lukk</button>
+  </div>
+</main>
+<script>
+(async function(){
+const S=crypto.subtle,b64=u=>{let s="";new Uint8Array(u).forEach(c=>s+=String.fromCharCode(c));return btoa(s);},u8=b=>Uint8Array.from(atob(b),c=>c.charCodeAt(0));
+const ITER=600000;
+const msg=(t,ok)=>{const m=document.getElementById("msg");m.textContent=t;m.className=ok?"ok":"";};
+async function kdf(pw,salt,use){const base=await S.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveKey"]);return S.deriveKey({name:"PBKDF2",salt,iterations:ITER,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,[use]);}
+document.getElementById("f").addEventListener("submit",async ev=>{
+  ev.preventDefault();
+  const p1=document.getElementById("p1").value,p2=document.getElementById("p2").value;
+  if(p1.length<12)return msg("Salasõna peab olema vähemalt 12 märki.");
+  if(p1!==p2)return msg("Salasõnad ei ühti.");
+  const b=document.getElementById("go");b.disabled=true;msg("Loon lukku…",true);
+  try{
+    const kp=await S.generateKey({name:"RSA-OAEP",modulusLength:3072,publicExponent:new Uint8Array([1,0,1]),hash:"SHA-256"},true,["encrypt","decrypt"]);
+    const pub=await S.exportKey("spki",kp.publicKey),priv=await S.exportKey("pkcs8",kp.privateKey);
+    const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+    const ct=await S.encrypt({name:"AES-GCM",iv},await kdf(p1,salt,"encrypt"),priv);
+    const lock={v:1,kdf:{alg:"PBKDF2-SHA256",iter:ITER,salt:b64(salt)},pub:b64(pub),priv:{alg:"AES-GCM",iv:b64(iv),ct:b64(ct)},created:new Date().toISOString().slice(0,10)};
+    // kontroll: lukk avaneb sama salasõnaga
+    const back=await S.decrypt({name:"AES-GCM",iv},await kdf(p2,salt,"decrypt"),u8(lock.priv.ct));
+    if(b64(back)!==b64(priv))throw new Error("kontroll ebaõnnestus");
+    document.getElementById("p1").value=document.getElementById("p2").value="";
+    document.getElementById("lock").value=JSON.stringify(lock);
+    document.getElementById("out").hidden=false;msg("");
+  }catch(e){msg("Luku loomine ebaõnnestus: "+e.message);}
+  b.disabled=false;
+});
+document.getElementById("copy").addEventListener("click",async()=>{const t=document.getElementById("lock");try{await navigator.clipboard.writeText(t.value);document.getElementById("copy").textContent="Kopeeritud";}catch(e){t.select();document.execCommand("copy");document.getElementById("copy").textContent="Kopeeritud";}});
+})();
+</script>
+</body>
+</html>

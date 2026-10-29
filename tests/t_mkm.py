@@ -1,5 +1,5 @@
 import os
-ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/index.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/build/kangas.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
 # MKM töövaldkonna uuringute osa kontroll (v34)
 import asyncio,json
 from playwright.async_api import async_playwright

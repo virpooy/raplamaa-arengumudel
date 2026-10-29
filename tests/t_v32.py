@@ -1,5 +1,5 @@
 import os
-ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/index.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));PAGE='file://'+ROOT+'/build/kangas.html';OUT=os.path.join(ROOT,'tests','out');os.makedirs(OUT,exist_ok=True)
 # Sisulised regressioonitestid v32 (juured, võrdlusaasta, stsenaariumi kooskõla, kangas, teekonnad, kitsas ekraan)
 import asyncio,json,re
 from playwright.async_api import async_playwright

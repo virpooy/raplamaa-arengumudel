@@ -3,7 +3,7 @@ Ei sõltu konkreetsetest numbritest: uued andmed võivad anda uued väärtused, 
 Kontrollib kõiki vaateid maakonna ja iga valla kohta: lehe JS-vead, .k9err plokid, NaN/undefined/Infinity tekstis ja joonistes."""
 import os, sys, asyncio
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGE = 'file://' + ROOT + '/index.html'
+PAGE = 'file://' + ROOT + '/build/kangas.html'
 from playwright.async_api import async_playwright
 VIEWS = ["ylevaade", "rahvastik", "teenused", "eluase", "eelarve", "stsenaariumid", "seosed", "otsused", "eesmargid", "andmed", "atlas", "vordlus"]
 UNITS = ["MAAK", "Rapla", "Kohila", "Marjamaa", "Kehtna"]

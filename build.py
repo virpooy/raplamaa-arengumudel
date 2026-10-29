@@ -1,4 +1,5 @@
-"""Ehitab index.html failidest src/base.html, src/k9/* ja data/*.json. Käivita: python3 build.py"""
+"""Ehitab lehe failidest src/base.html, src/k9/* ja data/*.json. Käivita: python3 build.py
+Väljund: build/kangas.html (avatud, testidele) ja index.html (avaldatav; lukustatud, kui lukk.json on olemas)."""
 import re,sys,os
 ROOT=os.path.dirname(os.path.abspath(__file__));D=os.path.join(ROOT,'src','k9')
 s=open(os.path.join(ROOT,'src','base.html'),encoding='utf-8').read()
@@ -35,4 +36,14 @@ def _data(m):
 _n=len(re.findall(r'/\*@data ([a-z0-9_]+)\*/null',s))
 s=re.sub(r'/\*@data ([a-z0-9_]+)\*/null',_data,s)
 assert '/*@data' not in s
-open(os.path.join(ROOT,'index.html'),'w',encoding='utf-8').write(s);print('andmefaile:',_n);print('ok',len(s))
+# avatud leht -> build/kangas.html (ei lähe repo; testid kasutavad seda)
+os.makedirs(os.path.join(ROOT,'build'),exist_ok=True)
+PLAIN=os.path.join(ROOT,'build','kangas.html')
+open(PLAIN,'w',encoding='utf-8').write(s);print('andmefaile:',_n);print('ok',len(s))
+# avaldatav leht -> index.html: lukustatud, kui repos on lukk.json (vt tools/lock.mjs, seadista-salasona.html)
+LOCK=os.path.join(ROOT,'lukk.json');OUTP=os.path.join(ROOT,'index.html')
+if os.path.exists(LOCK):
+    import subprocess
+    subprocess.run(['node',os.path.join(ROOT,'tools','lock.mjs'),PLAIN,LOCK,OUTP],check=True)
+else:
+    open(OUTP,'w',encoding='utf-8').write(s);print('NB: lukk.json puudub, index.html on lukustamata')

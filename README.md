@@ -12,6 +12,13 @@ Mõõdetud, tuletatud ja prognoositud väärtused on lehel eristatud. Puuduv vä
 ## Staatus
 Analüüsivahend, mitte omavalitsuse ametlik seisukoht. Andmete automaatne uuendamine on ettevalmistamisel.
 
+## Salasõna
+Avaldatav leht (`index.html`) on salasõnaga krüpteeritud, kui repos on fail `lukk.json`.
+- **Salasõna seadmine või vahetamine:** ava `seadista-salasona.html` (GitHub Pagesis `/seadista-salasona.html`), loo lukk ja pane see faili `lukk.json`. Salasõna ise ei jõua kunagi reposse ega GitHub Actionsisse.
+- **Kuidas see töötab:** igal ehitusel krüpteeritakse leht uue juhusliku võtmega (AES-256-GCM). See võti krüpteeritakse luku avaliku võtmega (RSA-OAEP 3072). Brauseris avab salasõna (PBKDF2, 600 000 kordust) salajase võtme ja selle kaudu lehe.
+- **„Jäta selles seadmes meelde”** salvestab avamisvõtme brauserisse. Tühistamiseks lisa aadressi lõppu `#unusta`.
+- **Piirang:** repo on avalik, seega lähtekood ja andmed (avalik statistika) on GitHubis nähtavad. Krüpteeritud on avaldatud leht. Nõrka salasõna saab lukufailist ära arvata, seega kasuta vähemalt 12 märki, parem veel mitmesõnalist lauset.
+
 ## Ülesehitus
 - `index.html`: avaldatav leht. Ehitatud fail, ära muuda käsitsi.
 - `data/`: kõik andmed JSON-failidena. Allikad ja uuendusviis on failis `data/ALLIKAD.md`.
