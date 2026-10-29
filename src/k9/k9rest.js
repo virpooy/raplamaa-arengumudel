@@ -3,6 +3,7 @@
   const {C,VC,e,n0,pp,sgn,lin,stGlyph,pill,rel,lg,fig,sec,tipAttr,tipHTML,table,moveInto,thread,stitch}=K9;
   const H_=EXT.HOUSE;
   /* ======== uued eluruumid: pisted ======== */
+  function partKey(){const k=Object.keys(H_.permit).find(x=>/kv$/.test(x));return k?{k,y:k.slice(0,4),q:k.slice(5)}:null;}
   function houses(W){const narrow=W<700,Y=H_.y,per=4,unit=2,L=narrow?36:48,R=narrow?10:130,T=26,cw=(W-L-R)/(Y.length+1),sq=Math.max(3,Math.min(9,cw*0.7/per-1.4)),st=sq+1.4;
     const mxN=Math.max(...H_.n.MAAK,...Object.values(H_.permit).map(Number)),rows=Math.ceil(mxN/unit/per),H=T+rows*st+40,y0=T+rows*st;
     let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Kasutusse lubatud uued eluruumid 2017–2025 valdade kaupa ja ehitusload maakonnas; 1 ruut = ${unit} eluruumi.">`;
@@ -13,10 +14,11 @@
       s+=`<rect x="${x0-2}" y="${T}" width="${per*st+4}" height="${y0-T}" fill="transparent"${tipAttr(tipHTML(`${y} · kasutusse lubatud uued eluruumid`,[...V.map(v=>[SHORTN[v],n0(H_.n[v][i])]),["maakond",n0(H_.n.MAAK[i])],["ehitusload (maakond)",H_.permit[y]!=null?n0(H_.permit[y]):"puudub"]],"Statistikaamet EH46U, EH045"))}/>`;
       s+=`<text x="${cx}" y="${y0+16}" text-anchor="middle" class="t-ax">${narrow&&i%2?"":y}</text>`;
       if(H_.permit[y]!=null)pts.push([cx,y0-H_.permit[y]/unit/per*st,y]);});
-    // 2026 I–II kv osaline aasta
-    const i=Y.length,cx=L+i*cw+cw/2,pk=H_.permit["2026 I–II kv"],ck=H_.compl["2026 I–II kv"],x0=cx-per*st/2;let idx=0;for(let j=0;j<Math.round(ck/unit);j++,idx++){const r=Math.floor(idx/per),c=idx%per;s+=`<rect x="${(x0+c*st).toFixed(1)}" y="${(y0-(r+1)*st).toFixed(1)}" width="${sq.toFixed(1)}" height="${sq.toFixed(1)}" fill="${C.ink}" fill-opacity=".85"/>`;}
-    s+=`<text x="${cx}" y="${y0+16}" text-anchor="middle" class="t-ax" style="fill:${C.ink}">2026</text><text x="${cx}" y="${y0+28}" text-anchor="middle" class="t-ax" style="font-size:9.5px">I–II kv</text>`;
-    s+=stitch(cx,y0-pk/unit/per*st,5,C.kid,true,tipAttr(tipHTML("2026 I–II kvartal (osaline aasta)",[["ehitusload",n0(pk)],["kasutusload",n0(ck)]],"EH045")));
+    // jooksev osaline aasta (võti "AAAA I–II kv"; kvartalite arv muutub andmete uuenedes)
+    const PK=partKey();if(PK){
+    const i=Y.length,cx=L+i*cw+cw/2,pk=H_.permit[PK.k],ck=H_.compl[PK.k],x0=cx-per*st/2;let idx=0;for(let j=0;j<Math.round((ck||0)/unit);j++,idx++){const r=Math.floor(idx/per),c=idx%per;s+=`<rect x="${(x0+c*st).toFixed(1)}" y="${(y0-(r+1)*st).toFixed(1)}" width="${sq.toFixed(1)}" height="${sq.toFixed(1)}" fill="${C.ink}" fill-opacity=".85"/>`;}
+    s+=`<text x="${cx}" y="${y0+16}" text-anchor="middle" class="t-ax" style="fill:${C.ink}">${PK.y}</text><text x="${cx}" y="${y0+28}" text-anchor="middle" class="t-ax" style="font-size:9.5px">${PK.q}</text>`;
+    if(pk!=null)s+=stitch(cx,y0-pk/unit/per*st,5,C.kid,true,tipAttr(tipHTML(`${PK.y} ${PK.q}artal (osaline aasta)`,[["ehitusload",pk!=null?n0(pk):"puudub"],["kasutusload",ck!=null?n0(ck):"puudub"]],"EH045")));}
     s+=thread(pts.map(p=>[p[0],p[1]]),C.kid,{w:1.8,fc:true,dash:"2 3"});pts.forEach(p=>s+=stitch(p[0],p[1],4.5,C.kid,true));
     if(!narrow){const l=pts[pts.length-1];s+=`<text x="${W-R+8}" y="${l[1]+4}" class="t-labm" style="fill:${C.kid}">ehitusload</text>`;let acc=0;V.forEach(v=>{const n=Math.round(H_.n[v][Y.length-1]/unit);const mid=acc+n/2;acc+=n;s+=`<text x="${W-R+8}" y="${y0-(mid/per)*st+4}" class="t-labm" style="fill:${VC[v]}">${SHORTN[v]}</text>`;});}
     s+=`<text x="${L}" y="14" class="t-cap">1 RUUT = ${unit} ELURUUMI · ${per} RUUTU REAS</text>`;
@@ -32,7 +34,7 @@
   K9.VIEWS.eluase={
     build(el){el.innerHTML=`<div class="k9intro"><div><p class="kick">Eluase ja taristu</p><h1>Kuidas muutus mõjutab eluaset ja taristut?</h1><a class="k9treelink" href="#ylevaade/k9-puu" data-tree="house">⟡ Ava arengupuus</a></div><p class="lead" data-k9="lead"></p></div><div class="k9branches"><div class="k9branch" data-k9branch="house"></div><div class="k9branch" data-k9branch="water"></div></div>
       ${sec("k9-tyhi","Elamufond ja asustamata eluruumid","REL 2021 (viimane mõõtmine): iga ruut on 50 tavaeluruumi. Täis ruudud asustatud, tühjad ruudud asustamata (sh suvekodud). ÜRP seire põhimõõdik 6.",`<div data-k9="vac"></div>`)}
-      ${sec("k9-ehit","Uusehitus","Kasutusse lubatud uued eluruumid valdade kaupa (ruudud) ja maakonna ehitusload (kollane niit). Viimane täisaasta 2025; 2026 on ainult I–II kvartal (osaline aasta, mitte aasta tulemus).",`<div data-k9="hs"></div><div class="k9moved" data-k9="hcards"></div>`)}
+      ${sec("k9-ehit","Uusehitus","Kasutusse lubatud uued eluruumid valdade kaupa (ruudud) ja maakonna ehitusload (kollane niit). Viimane veerg on jooksva aasta osa (ainult avaldatud kvartalid, mitte aasta tulemus).",`<div data-k9="hs"></div><div class="k9moved" data-k9="hcards"></div>`)}
       ${sec("k9-vajadus","Rahvastikumuutusest tulenev eluasemevajadus","Valitud stsenaariumi rahvaarvu muutus jagatud leibkonna suurusega (REL 2021). See ei ole kogu ehitusvajadus: asendusehitus ja leibkondade väiksemaks jäämine ei ole arvestatud.",`<div class="k9moved" data-k9="hmv"></div>`)}
       ${sec("k9-vesi","Vesi ja kanalisatsioon","Asustatud eluruumid veevarustuse ja tualettruumi järgi (REL 2021, viimane mõõtmine). Ühisveevärgi ja -kanalisatsiooni (ÜVK) võrgud, võimekus, teeninduspiirkonnad, investeeringud ja tariifid ei ole mudelis: koormuse ja võimekuse analüüsi ei tehta.",`<div class="k9grid2"><div data-k9="wat"></div><div data-k9="wc"></div></div><div class="k9moved" data-k9="wmv"></div>`)}
       ${sec("k9-dev","Arendusalad ja planeeringud","Arendusalade register püsiva tunnuse, planeeringu staatuse, eluruumide, etappide, taristu ja piirangutega. Arvutuslik eluasemevajadus ja tegelik turunõudlus on eri asjad.",`<div data-part="devreg"></div>`)}`;
@@ -41,8 +43,8 @@
       const wm=el.querySelector('[data-k9="wmv"]'),ww=nx("waterBody");if(ww){const ps=pm(ww);wm.appendChild(ww);ps.forEach(p=>wm.appendChild(p));}},
     update(el){const u=S.unit,q=k=>el.querySelector(`[data-k9="${k}"]`),w=k=>K9.wOf(q(k)),key=u==="MAAK"?"MAAK":u,n5=H_.n[key].slice(4).reduce((a,b)=>a+b,0);
       el.querySelector('[data-k9="lead"]').innerHTML=`<b>Lühijäreldus.</b> ${NAME[u]}: 2021–2025 lubati kasutusse <b>${n0(n5)}</b> uut eluruumi (${n0(n5/5)} aastas). Valitud stsenaariumis muutub rahvaarv 2026–2036 ${sgn(Math.round(popT(u,YN)-POP[u].tot["2026"]))} inimese võrra.`;
-      q("hs").innerHTML=fig({title:"Uued eluruumid 2017–2025 ja 2026 I–II kvartal",legend:[...V.map(v=>lg.sq(VC[v],SHORTN[v])),lg.fc(C.kid,"ehitusload maakonnas (EH045)"),lg.sq(C.ink,"2026 I–II kv: mõõdetud, osaline aasta")],body:houses(w("hs")),src:"Statistikaamet EH46U, EH045",
-        table:table(["Aasta",...V.map(v=>SHORTN[v]),"Maakond","Ehitusload"],[...H_.y.map((y,i)=>[String(y),...V.map(v=>n0(H_.n[v][i])),n0(H_.n.MAAK[i]),H_.permit[y]!=null?n0(H_.permit[y]):"puudub"]),["2026 I–II kv",...V.map(()=>"puudub"),n0(H_.compl["2026 I–II kv"]),n0(H_.permit["2026 I–II kv"])]])});
+      q("hs").innerHTML=fig({title:`Uued eluruumid ${H_.y[0]}–${H_.y[H_.y.length-1]}${partKey()?" ja "+partKey().y+" "+partKey().q+"artal":""}`,legend:[...V.map(v=>lg.sq(VC[v],SHORTN[v])),lg.fc(C.kid,"ehitusload maakonnas (EH045)"),partKey()?lg.sq(C.ink,partKey().k+": mõõdetud, osaline aasta"):""],body:houses(w("hs")),src:"Statistikaamet EH46U, EH045",
+        table:table(["Aasta",...V.map(v=>SHORTN[v]),"Maakond","Ehitusload"],[...H_.y.map((y,i)=>[String(y),...V.map(v=>n0(H_.n[v][i])),n0(H_.n.MAAK[i]),H_.permit[y]!=null?n0(H_.permit[y]):"puudub"]),...(partKey()?[[partKey().k,...V.map(()=>"puudub"),H_.compl[partKey().k]!=null?n0(H_.compl[partKey().k]):"puudub",H_.permit[partKey().k]!=null?n0(H_.permit[partKey().k]):"puudub"]]:[])])});
       q("vac").innerHTML=fig({title:"Tavaeluruumid REL 2021 (viimane mõõtmine)",legend:[lg.sq(C.ink,"asustatud"),lg.sq(C.ink,"asustamata",true),lg.txt("1 ruut = 50 eluruumi")],body:dwell(w("vac"),"vac"),src:"REL 2021, RL21217"});
       q("wat").innerHTML=fig({title:"Veevarustus · REL 2021 (viimane mõõtmine)",legend:[lg.sq(C.sc,"veevarustusega"),lg.sq(C.sc,"ilma",true)],body:dwell(w("wat"),"wat"),src:"REL 2021, RL21217"});
       q("wc").innerHTML=fig({title:"Tualettruum · REL 2021 (viimane mõõtmine)",legend:[lg.sq(C.sc,"tualettruumiga"),lg.sq(C.sc,"ilma",true)],body:dwell(w("wc"),"wc"),src:"REL 2021, RL21217"});},
