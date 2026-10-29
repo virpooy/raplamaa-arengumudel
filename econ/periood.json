@@ -1,0 +1,12 @@
+{
+ "_selgitus": "Seosed-peatüki võrdlusperioodid. Aastase uuenduse korral nihuta aastaid ja vaata üle econ/build.py tekstid (sildid sisaldavad aastaid).",
+ "pop": [2019, 2025],
+ "voog": [2019, 2024],
+ "tulu": [2019, 2024],
+ "palk": [2021, 2025],
+ "ettev": 2025,
+ "survei": [2019, 2025],
+ "tootud": [2019, 2025],
+ "eelarve": [2021, 2025],
+ "rahvaMuutus": [2021, 2026]
+}
