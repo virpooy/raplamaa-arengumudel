@@ -249,7 +249,14 @@ const K9=(function(){
       const a=ev.target.closest("a[href^='#']");if(a&&a.closest("#k9")){const h=a.getAttribute("href").slice(1);if(a.classList.contains("k9skip"))return;ev.preventDefault();if(a.dataset.tree!=null&&K9.tree){K9.tree.pending=a.dataset.tree;if(st.view==="ylevaade"){render("ylevaade");}}go(a.dataset.go||h);}});
     addEventListener("popstate",()=>show(location.hash));
     addEventListener("hashchange",()=>{if(location.hash.includes("?")){try{applyQuery();}catch(err){console.error(err);}show(location.hash);}});
-    let sc0=false;addEventListener("scroll",()=>{const on=scrollY>160;if(on!==sc0){sc0=on;k.classList.toggle("k9scrolled",on);}},{passive:true});
+    /* Kompaktne päis kerimisel. Päis on lehe voos: ahenemine nihutab sisu ja brauseri kerimisankurdus muudab scrollY-d sama palju.
+       Ühe piiriga (varem 160 px) tekkis tagasisideahel ehk värin. Hüsterees: ahenda, kui scrollY > kõrgusmuutus + 80 px,
+       laienda alles siis, kui scrollY < 40 px; pärast nihet jääb asend alati samasse olekusse. */
+    let sc0=false,dh=null,scRaf=0;
+    const measure=()=>{const t=k.querySelector(".k9top");if(!t){dh=0;return;}const was=k.classList.contains("k9scrolled");k.classList.remove("k9scrolled");const h0=t.offsetHeight;k.classList.add("k9scrolled");const h1=t.offsetHeight;k.classList.toggle("k9scrolled",was);dh=Math.max(0,h0-h1);};
+    const scUpd=()=>{scRaf=0;if(dh==null)measure();const y=scrollY,on=sc0?y>40:y>Math.max(160,dh+80);if(on!==sc0){sc0=on;k.classList.toggle("k9scrolled",on);}};
+    addEventListener("scroll",()=>{if(!scRaf)scRaf=requestAnimationFrame(scUpd);},{passive:true});
+    addEventListener("resize",()=>{dh=null;});
     addEventListener("keydown",ev=>{if(ev.key==="Escape"&&tipEl)tipEl.hidden=true;});
     let rz=0,lw=innerWidth;addEventListener("resize",()=>{if(Math.abs(innerWidth-lw)<24)return;lw=innerWidth;clearTimeout(rz);rz=setTimeout(()=>{header();render(st.view);},200);});}
   function refresh(){if(st.busy)return;header();render(st.view);}
