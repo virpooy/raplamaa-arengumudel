@@ -4,3 +4,4 @@ __pycache__/
 pipeline/out/
 node_modules/
 build/
+pipeline/*/out/

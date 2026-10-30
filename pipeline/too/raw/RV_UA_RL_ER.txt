@@ -1,0 +1,101 @@
+##RV06U | Piirkond/Haldusüksus|Näitaja || 2017,2018,2019,2020,2021,2022,2023,2024,2025,2026
+Kogu Eesti|Rahvaarv || 1315635,1319133,1324820,1328889,1330068,1331796,1365884,1374687,1369995,1360745
+Kogu Eesti|Demograafiline tööturusurveindeks || 0.83,0.84,0.84,0.85,0.86,0.87,0.9,0.9,0.9,0.88
+HARJU MAAKOND|Demograafiline tööturusurveindeks || 0.96,0.97,0.99,1,1.02,1.03,1.07,1.06,1.05,1.02
+JÄRVA MAAKOND|Demograafiline tööturusurveindeks || 0.7,0.69,0.68,0.69,0.69,0.7,0.74,0.74,0.73,0.74
+RAPLA MAAKOND|Rahvaarv || 33485,33299,33311,33282,33116,33529,34038,34246,33990,33733
+RAPLA MAAKOND|Rahvastik vanuses 5-14 || 3814,3862,3943,3919,3896,3929,4006,3979,3943,3812
+RAPLA MAAKOND|Rahvastik vanuses 55-64 || 4410,4405,4477,4472,4466,4438,4442,4523,4500,4520
+RAPLA MAAKOND|Demograafiline tööturusurveindeks || 0.86,0.88,0.88,0.88,0.87,0.89,0.9,0.88,0.88,0.84
+..Kehtna vald|Rahvaarv || 5585,5535,5469,5460,5416,5407,5454,5499,5421,5328
+..Kehtna vald|Demograafiline tööturusurveindeks || 0.74,0.79,0.75,0.74,0.75,0.83,0.82,0.8,0.81,0.78
+..Kohila vald|Rahvaarv || 6933,6949,7114,7286,7322,7525,7726,7834,7819,7844
+..Kohila vald|Demograafiline tööturusurveindeks || 1.21,1.24,1.26,1.28,1.29,1.26,1.3,1.22,1.22,1.14
+..Märjamaa vald|Rahvaarv || 7707,7613,7535,7427,7374,7368,7405,7389,7264,7188
+..Märjamaa vald|Demograafiline tööturusurveindeks || 0.71,0.7,0.74,0.73,0.71,0.73,0.75,0.72,0.69,0.65
+..Rapla vald|Rahvaarv || 13260,13202,13193,13109,13004,13229,13453,13524,13486,13373
+..Rapla vald|Demograafiline tööturusurveindeks || 0.85,0.85,0.85,0.84,0.83,0.82,0.84,0.84,0.85,0.83
+
+##UA08 | Elukoht|Näitaja|Sissetuleku liik || 2018,2019,2020,2021,2022,2023,2024
+Kogu Eesti|Isikute arv|Tööga seotud tulu || 696230,704680,696730,702250,721590,727080,722860
+Kogu Eesti|Eurot isiku kohta|Tööga seotud tulu || 12430,13453,14042,15020,16532,18258,19569
+HARJU MAAKOND|Isikute arv|Tööga seotud tulu || 332450,339200,336010,339980,353770,359660,359700
+HARJU MAAKOND|Eurot isiku kohta|Tööga seotud tulu || 13954,15126,15976,17135,18846,20764,22194
+JÄRVA MAAKOND|Isikute arv|Tööga seotud tulu || 15620,15560,15190,15150,15240,15100,14860
+JÄRVA MAAKOND|Eurot isiku kohta|Tööga seotud tulu || 11102,12028,12368,13114,14411,15694,16931
+RAPLA MAAKOND|Isikute arv|Tööga seotud tulu || 17660,17780,17520,17570,17890,17890,17810
+RAPLA MAAKOND|Eurot isiku kohta|Tööga seotud tulu || 11838,12706,13232,13927,15228,16887,17932
+..Kehtna vald|Isikute arv|Tööga seotud tulu || 2870,2890,2740,2750,2780,2780,2730
+..Kehtna vald|Eurot isiku kohta|Tööga seotud tulu || 11273,11827,12491,13169,14560,15929,17116
+..Kohila vald|Isikute arv|Tööga seotud tulu || 3820,3960,4020,4040,4210,4260,4330
+..Kohila vald|Eurot isiku kohta|Tööga seotud tulu || 13321,14234,14680,15451,16745,18692,19746
+..Märjamaa vald|Isikute arv|Tööga seotud tulu || 3880,3870,3800,3780,3780,3730,3640
+..Märjamaa vald|Eurot isiku kohta|Tööga seotud tulu || 10826,11719,12070,12601,13853,15294,16298
+..Rapla vald|Isikute arv|Tööga seotud tulu || 7090,7060,6960,7000,7120,7140,7110
+..Rapla vald|Eurot isiku kohta|Tööga seotud tulu || 11821,12750,13323,14061,15323,16968,17977
+
+##RL21163 | Aasta|Sugu|Elukoht || Kokku,Eestis,Tallinnas,Tartus,Elukoha maakonnas,Samas KOV,Erinevas KOV samas mk,Erinevas maakonnas,Eestis teadmata,Välismaal,Teadmata
+2021|Mehed ja naised|Kogu Eesti || 642391,640448,275764,59144,549617,393491,156126,90785,46,1651,292
+2021|Mehed ja naised|HARJU MAAKOND || 313827,312883,234671,2857,300732,210755,89977,12130,21,766,178
+2021|Mehed ja naised|JÄRVA MAAKOND || 13543,13502,2030,360,9356,7307,2049,4145,1,36,5
+2021|Mehed ja naised|RAPLA MAAKOND || 16109,16077,4482,157,8891,7305,1586,7184,2,27,5
+2021|Mehed ja naised|..Kehtna vald || 2474,2469,494,25,1601,983,618,868,0,5,0
+2021|Mehed ja naised|..Kohila vald || 3753,3745,1605,27,1379,1233,146,2365,0,8,0
+2021|Mehed ja naised|..Märjamaa vald || 3464,3457,746,23,2051,1805,246,1406,0,5,3
+2021|Mehed ja naised|..Rapla vald || 6418,6406,1637,82,3860,3284,576,2545,0,9,3
+
+##RL21166 | Elukoht=Rapla maakond, 2021, Tegevusala || Kokku,Tallinnas,Elukoha maakonnas,Samas KOV,Erinevas KOV samas mk,Erinevas maakonnas,Välismaal
+Tegevusalad kokku || 16109,4482,8891,7305,1586,7184,27
+Põllumajandus, metsamajandus ja kalapüük || 844,2,725,642,83,119,0
+Mäetööstus || 73,8,50,41,9,23,0
+Töötlev tööstus || 3181,306,2186,1641,545,995,0
+Elektrienergia, gaasi, auru ja konditsioneeritud õhuga varustamine || 50,24,11,10,1,39,0
+Veevarustus, kanalisatsioon, jäätme- ja saastekäitlus || 112,27,59,35,24,53,0
+Ehitus || 1710,449,916,772,144,794,0
+Hulgi- ja jaekaubandus, mootorsõidukite remont || 2544,868,1174,978,196,1370,0
+Veondus ja laondus || 998,268,411,308,103,587,0
+Majutus ja toitlustus || 409,129,210,165,45,199,0
+Info ja side || 387,317,40,38,2,347,0
+Finants- ja kindlustustegevus || 125,106,16,12,4,109,0
+Kinnisvaraalane tegevus || 147,53,74,70,4,73,0
+Kutse-, teadus- ja tehnikaalane tegevus || 566,291,218,203,15,348,0
+Haldus- ja abitegevused || 544,307,141,114,27,403,0
+Avalik haldus ja riigikaitse, kohustuslik sotsiaalkindlustus || 1050,616,367,305,62,683,0
+Haridus || 1596,177,1254,1087,167,342,0
+Tervishoid ja sotsiaalhoolekanne || 978,337,531,436,95,447,0
+Kunst, meelelahutus ja vaba aeg || 394,94,272,236,36,122,0
+Muud teenindavad tegevused || 338,96,217,194,23,121,0
+Tegevusala teadmata || 63,7,19,18,1,10,27
+
+##RL21147 | 2021, hõivatud elukoha järgi, Tegevusala || Kogu Eesti,HARJU MAAKOND,JÄRVA MAAKOND,RAPLA MAAKOND,Kehtna vald,Kohila vald,Märjamaa vald,Rapla vald
+Tegevusalad kokku || 642391,313827,13543,16109,2474,3753,3464,6418
+Põllumajandus, metsamajandus ja kalapüük || 18285,1787,1096,844,209,38,308,289
+Mäetööstus || 1862,395,43,73,6,8,32,27
+Töötlev tööstus || 110055,45199,2832,3181,574,737,645,1225
+Elektrienergia, gaasi, auru ja konditsioneeritud õhuga varustamine || 4465,1486,54,50,5,18,6,21
+Veevarustus, kanalisatsioon, jäätme- ja saastekäitlus || 4093,1909,96,112,23,29,21,39
+Ehitus || 48520,20884,1343,1710,225,411,362,712
+Hulgi- ja jaekaubandus, mootorsõidukite remont || 94724,49686,1723,2544,338,667,517,1022
+Veondus ja laondus || 41394,23541,859,998,142,251,209,396
+Majutus ja toitlustus || 22827,11908,361,409,72,86,102,149
+Info ja side || 29358,21661,298,387,48,121,58,160
+Finants- ja kindlustustegevus || 11310,8917,103,125,11,42,19,53
+Kinnisvaraalane tegevus || 15406,8680,225,147,25,36,29,57
+Kutse-, teadus- ja tehnikaalane tegevus || 31290,20865,292,566,61,151,107,247
+Haldus- ja abitegevused || 32050,18614,517,544,78,140,115,211
+Avalik haldus ja riigikaitse, kohustuslik sotsiaalkindlustus || 38491,17684,840,1050,161,255,216,418
+Haridus || 57363,23381,1341,1596,264,364,347,621
+Tervishoid ja sotsiaalhoolekanne || 44383,18033,845,978,143,219,211,405
+Kunst, meelelahutus ja vaba aeg || 16973,8983,345,394,50,83,79,182
+Muud teenindavad tegevused || 14943,7622,261,338,30,85,65,158
+Tegevusala teadmata || 4599,2592,69,63,9,12,16,26
+
+##ER0320 | 2025, ettevõtted töötajate arvu järgi || Kokku,<10,10-49,50-249,250-749,750+
+Kogu Eesti || 159827,152205,6284,1151,153,34
+Harju maakond || 94013,89462,3686,733,104,28
+Järva maakond || 2542,2406,113,20,2,1
+Rapla maakond || 3577,3437,126,14,0,0
+Kehtna vald || 457,441,14,2,0,0
+Kohila vald || 780,756,21,3,0,0
+Märjamaa vald || 919,887,29,3,0,0
+Rapla vald || 1421,1353,62,6,0,0

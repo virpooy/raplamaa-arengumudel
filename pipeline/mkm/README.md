@@ -1,0 +1,1 @@
+MKM töövaldkonna uuringud (https://mkm.ee/too-ja-vordsed-voimalused/toovaldkonna-uuringud-ja-analuusid/valminud-uuringud), loetelu päritud 17.10.2026 Chrome'ist; 112 faili. Failid baas-URL: https://mkm.ee/sites/default/files/documents/

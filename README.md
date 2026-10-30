@@ -27,6 +27,7 @@ Avaldatav leht (`index.html`) on salasõnaga krüpteeritud, kui repos on fail `l
 - `build.py`: paneb lehe kokku (`python3 build.py`).
 - `tests/`: Playwrighti testid (`python3 tests/t_v46.py` jt; regressioon `python3 tests/t_reg.py vordle`).
 - `econ/`: Seosed-peatüki andmete ettevalmistus (79 omavalitsuse ristlõige), väljund `data/econ.json`.
+- `pipeline/`: andmete tootmine. `stat_pop.mjs`, `stat_ext.mjs`, `stat_econ.mjs` pärivad Statistikaametist; `db/` (andmebaas 2016–2026), `too/` (tööturg), `mkm/` (MKM uuringud) koostavad ülejäänud andmefailid oma sisenditest.
 - `tools/datafmt.py`: andmefailide ühtne vorming, et git-i erinevused oleksid loetavad.
 
 ## Andmete automaatne uuendamine

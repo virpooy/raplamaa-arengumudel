@@ -22,10 +22,10 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 | `edu.json` | Õpilased, koolid, lasteaiad, toetusfond | EHIS / Haridussilm, toetusfondi arvestus | käsitsi / pool |
 | `peers.json` | Võrdlusomavalitsuste (79) eelarve- ja rahvastikunäitajad (`K` = näitajad, `R` = read) | Statistikaamet RR300 (perioodi tulud, kulud, tulem, investeeringud, laenud) ja RV0240; arvutuskäik `pipeline/stat_econ.mjs`, taastatud ja kontrollitud 29.10.2026 olemasolevate väärtuste vastu. `refi` ja `finKordaja` arvutuskäiku ei õnnestunud taastada: need jäävad uuendamisel eelmisest versioonist | **pool**: töövoog „Seosed: aastane uuendus” |
 | `ext.json` | Lisaandmed, vt allpool | mitu | Statistikaameti osad **auto**: `pipeline/stat_ext.mjs`, igakuine; ülejäänud käsitsi |
-| `db.json` | Raplamaa andmebaas 2016–2026: kirjed allika, perioodi ja kontrolliga (skeem: `data2/SCHEMA.md` algses töökaustas) | Genereeritud `data2/build_db.py`, 11.10.2026 | generaator väljaspool repot |
+| `db.json` | Raplamaa andmebaas 2016–2026: kirjed allika, perioodi ja kontrolliga (skeem: `pipeline/db/SCHEMA.md`, katvus: `pipeline/db/katvus.md`) | `pipeline/db/build_db.py` kirjetest `pipeline/db/fin_<vald>.json` (valdade aruanded), `stat_fin.json`, `stat_other.json` (Statistikaamet) | käsitsi (aruannete lugemine) |
 | `econ.json` | Seosed: 79 omavalitsuse ristlõige | `econ/build.py` failidest `econ/raw/kov79.txt` (`pipeline/stat_econ.mjs`: RV0240, RVR02, RV112U, RV49U, UA08, PA107, ER0320, RV06U, TT065) ja `peers.json`; perioodid `econ/periood.json` | **pool**: töövoog „Seosed: aastane uuendus”, alati ülevaatusele |
-| `too.json` | Tööturu peatükk (TT4645 jt) | Genereeritud `toostat/build.py` (väljaspool repot) | auto |
-| `mkm.json` | MKM töövaldkonna uuringute register ja Raplamaa leiud | Genereeritud `mkm/gen_mkm.py` (väljaspool repot) | käsitsi |
+| `too.json` | Tööturu peatükk (TT4645 jt) | `pipeline/too/build.py` väljavõtetest `pipeline/too/raw/` (Statistikaamet) ja `data/pop.json` | käsitsi; võimalik automatiseerida |
+| `mkm.json` | MKM töövaldkonna uuringute register ja Raplamaa leiud | `pipeline/mkm/gen_mkm.py` (register ja leiud skriptis, märkmed `leiud_A.md`) | käsitsi |
 
 ## `ext.json` sisu
 
@@ -49,5 +49,4 @@ Kõik kangas kasutatavad andmed on selles kaustas. `build.py` paneb need lehele 
 ## Teadaolevad lüngad
 
 - `peers.json`: näitajate `refi` (refinantseerimise aastad) ja `finKordaja` (finantskulude kasv) arvutuskäiku ei õnnestunud olemasolevatest väärtustest taastada.
-- `db.json`, `too.json` ja `mkm.json` generaatorid on veel algses töökaustas, mitte repos. Need tuuakse repo `pipeline/` kausta järgmises etapis koos Statistikaameti pärimisskriptidega.
 - Mudeli tööhõive baas `EMPB` on koodis kirjas arvuna. Andmete uuenemisel peaks see arvutuma `EMPR`-ist.

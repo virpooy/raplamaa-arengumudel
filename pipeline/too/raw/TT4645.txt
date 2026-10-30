@@ -1,0 +1,128 @@
+##TT4645 | Näitaja|Piirkond/maakond|Vanuserühm || 2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025
+Tööjõud ja mitteaktiivsed kokku, tuhat|Eesti|15 kuni 74 aastat || 983.7,982.2,976.2,976.7,981,984.2,975.9,978.4,1004,1013.6,1011.7
+Tööjõud ja mitteaktiivsed kokku, tuhat|Eesti|16 aastat kuni pensioniiga || 811.1,810.6,808.6,806.7,803.2,809,804.5,809.1,831.4,842.6,841.2
+Tööjõud ja mitteaktiivsed kokku, tuhat|Eesti|20 kuni 64 aastat || ..,..,..,785.4,784.3,781.1,769.8,768,785.9,789.4,783.8
+Tööjõud ja mitteaktiivsed kokku, tuhat|Harju maakond|15 kuni 74 aastat || 433,430.2,432.3,437.4,444.3,450.6,448.3,457.1,474.7,481.4,483.6
+Tööjõud ja mitteaktiivsed kokku, tuhat|Harju maakond|16 aastat kuni pensioniiga || 363.4,365,369.1,371.9,375.3,381.3,380.3,390.7,402.2,408.3,411.9
+Tööjõud ja mitteaktiivsed kokku, tuhat|Harju maakond|20 kuni 64 aastat || ..,..,..,361.6,366.8,368.5,364.5,371.7,380.8,383.4,384.8
+Tööjõud ja mitteaktiivsed kokku, tuhat|Järva maakond|15 kuni 74 aastat || 22.5,23.2,22.9,22.8,22.5,22.3,22,21.6,21.5,21.3,21.5
+Tööjõud ja mitteaktiivsed kokku, tuhat|Järva maakond|16 aastat kuni pensioniiga || 18.2,18.6,18.1,17.6,17.3,17.8,17.6,16.9,17,15.7,16.6
+Tööjõud ja mitteaktiivsed kokku, tuhat|Järva maakond|20 kuni 64 aastat || ..,..,..,17.4,17.2,17.5,16.9,16,16.1,15.3,15.9
+Tööjõud ja mitteaktiivsed kokku, tuhat|Rapla maakond|15 kuni 74 aastat || 25.7,25.8,25.5,24.8,24.7,24.6,23.9,24.1,24.3,24,24.8
+Tööjõud ja mitteaktiivsed kokku, tuhat|Rapla maakond|16 aastat kuni pensioniiga || 19.6,19.7,20.5,19.7,19.5,19.9,18.1,19.4,20,18.6,19
+Tööjõud ja mitteaktiivsed kokku, tuhat|Rapla maakond|20 kuni 64 aastat || ..,..,..,19.3,19,18.9,17.7,18.7,19.3,17.1,17.3
+Tööjõud, tuhat|Eesti|15 kuni 74 aastat || 683.1,691.4,698.8,702.4,702.6,704.5,693.6,717.5,742.3,755.7,749.3
+Tööjõud, tuhat|Eesti|16 aastat kuni pensioniiga || 637.1,641.5,651.9,653.6,648.2,654.4,650.5,670.3,693,705.4,699.6
+Tööjõud, tuhat|Eesti|20 kuni 64 aastat || ..,..,..,655.9,655.1,658,650.6,665.1,688.1,697.1,689.1
+Tööjõud, tuhat|Harju maakond|15 kuni 74 aastat || 324.4,325.7,336.9,338.2,344.2,344.9,339.7,360.7,370.8,377.6,377.9
+Tööjõud, tuhat|Harju maakond|16 aastat kuni pensioniiga || 299.8,302.5,314.9,314.7,318.1,319.6,319.9,338.1,346.9,354.1,356.1
+Tööjõud, tuhat|Harju maakond|20 kuni 64 aastat || ..,..,..,314.9,320.6,321.4,319.4,334.8,344,349.7,349.7
+Tööjõud, tuhat|Järva maakond|15 kuni 74 aastat || 15.4,15.7,15.3,15.1,14.7,15.1,14,14.6,15.5,14.7,14.3
+Tööjõud, tuhat|Järva maakond|16 aastat kuni pensioniiga || 14.6,14.7,14,13.9,13.4,14,12.7,13.4,14,12.9,13.1
+Tööjõud, tuhat|Järva maakond|20 kuni 64 aastat || ..,..,..,14.2,13.9,14.3,12.8,13.3,14.2,12.9,12.8
+Tööjõud, tuhat|Rapla maakond|15 kuni 74 aastat || 17.7,17.7,17.5,17.2,16.9,17.5,15.4,17,17.6,16.5,16.7
+Tööjõud, tuhat|Rapla maakond|16 aastat kuni pensioniiga || 16.1,16.3,16.1,16,15.7,16.5,14.5,15.7,15.7,14.9,14.8
+Tööjõud, tuhat|Rapla maakond|20 kuni 64 aastat || ..,..,..,16.1,15.9,16.4,14.6,15.9,15.8,14.7,14.7
+Hõivatute arv, tuhat|Eesti|15 kuni 74 aastat || 640.9,644.6,658.6,664.7,671.3,656.6,650.5,677.4,694.6,698.6,693.1
+Hõivatute arv, tuhat|Eesti|16 aastat kuni pensioniiga || 596.2,596.2,612.8,618.1,618.5,608.2,608.3,631,647.1,649.6,645.9
+Hõivatute arv, tuhat|Eesti|20 kuni 64 aastat || ..,..,..,622.3,626.7,614,610.8,628.8,645.5,645.4,640
+Hõivatute arv, tuhat|Harju maakond|15 kuni 74 aastat || 307.5,306.8,320.6,323.3,332.4,323.9,320.4,339.7,347.7,350.5,349.9
+Hõivatute arv, tuhat|Harju maakond|16 aastat kuni pensioniiga || 283.6,284.3,299.2,301.1,307,299,301,317.6,324.6,327.6,329.4
+Hõivatute arv, tuhat|Harju maakond|20 kuni 64 aastat || ..,..,..,301.7,310,302.1,301.7,315.9,323.4,325,325.3
+Hõivatute arv, tuhat|Järva maakond|15 kuni 74 aastat || 14.2,14.4,14.2,14.3,14.2,14,13.2,14,14.8,14,13.1
+Hõivatute arv, tuhat|Järva maakond|16 aastat kuni pensioniiga || 13.5,13.5,13.1,13.2,13.1,13,12,12.8,13.3,12.3,12
+Hõivatute arv, tuhat|Järva maakond|20 kuni 64 aastat || ..,..,..,13.5,13.5,13.3,12.1,12.9,13.5,12.4,11.9
+Hõivatute arv, tuhat|Rapla maakond|15 kuni 74 aastat || 16.6,16.2,16.3,16.5,16.3,16.5,14.7,16,15.7,15.4,15.7
+Hõivatute arv, tuhat|Rapla maakond|16 aastat kuni pensioniiga || 15.1,14.7,15,15.3,15.1,15.5,13.8,14.7,14.1,13.8,13.8
+Hõivatute arv, tuhat|Rapla maakond|20 kuni 64 aastat || ..,..,..,15.5,15.3,15.4,13.9,15,14.4,13.7,13.8
+Töötute arv, tuhat|Eesti|15 kuni 74 aastat || 42.3,46.7,40.3,37.7,31.3,47.9,43.1,40.2,47.7,57.1,56.2
+Töötute arv, tuhat|Eesti|16 aastat kuni pensioniiga || 40.8,45.3,39.1,35.5,29.6,46.3,42.2,39.4,45.9,55.8,53.7
+Töötute arv, tuhat|Eesti|20 kuni 64 aastat || ..,..,..,33.6,28.4,44,39.8,36.3,42.5,51.7,49.1
+Töötute arv, tuhat|Harju maakond|15 kuni 74 aastat || 16.9,18.8,16.3,14.9,11.8,21,19.3,21,23.1,27.1,28
+Töötute arv, tuhat|Harju maakond|16 aastat kuni pensioniiga || 16.2,18.2,15.6,13.6,11,20.6,18.9,20.5,22.2,26.5,26.7
+Töötute arv, tuhat|Harju maakond|20 kuni 64 aastat || ..,..,..,13.2,10.6,19.3,17.8,18.9,20.6,24.6,24.4
+Töötute arv, tuhat|Järva maakond|15 kuni 74 aastat || 1.2,1.2,1,0.7,.,1.1,.,.,.,.,1.2
+Töötute arv, tuhat|Järva maakond|16 aastat kuni pensioniiga || 1.2,1.2,1,0.7,.,1,.,.,.,.,1.1
+Töötute arv, tuhat|Järva maakond|20 kuni 64 aastat || ..,..,..,0.7,.,1,.,.,.,.,.
+Töötute arv, tuhat|Rapla maakond|15 kuni 74 aastat || 1.1,1.5,1.1,.,.,.,.,.,1.9,1.2,.
+Töötute arv, tuhat|Rapla maakond|16 aastat kuni pensioniiga || 1,1.5,1.1,.,.,.,.,.,1.6,1.1,.
+Töötute arv, tuhat|Rapla maakond|20 kuni 64 aastat || ..,..,..,.,.,.,.,.,1.4,.,.
+Mitteaktiivsete arv, tuhat|Eesti|15 kuni 74 aastat || 300.5,290.8,277.3,274.3,278.4,279.7,282.3,260.8,261.7,258,262.3
+Mitteaktiivsete arv, tuhat|Eesti|16 aastat kuni pensioniiga || 174,169.1,156.7,153.1,155,154.5,154,138.7,138.5,137.2,141.6
+Mitteaktiivsete arv, tuhat|Eesti|20 kuni 64 aastat || ..,..,..,129.4,129.2,123.1,119.2,102.9,97.9,92.3,94.7
+Mitteaktiivsete arv, tuhat|Harju maakond|15 kuni 74 aastat || 108.6,104.5,95.3,99.2,100.1,105.7,108.6,96.4,103.9,103.8,105.7
+Mitteaktiivsete arv, tuhat|Harju maakond|16 aastat kuni pensioniiga || 63.6,62.5,54.2,57.2,57.2,61.7,60.4,52.5,55.3,54.2,55.8
+Mitteaktiivsete arv, tuhat|Harju maakond|20 kuni 64 aastat || ..,..,..,46.7,46.3,47.1,45,37,36.9,33.7,35
+Mitteaktiivsete arv, tuhat|Järva maakond|15 kuni 74 aastat || 7.1,7.6,7.6,7.8,7.8,7.2,8,7,6,6.6,7.2
+Mitteaktiivsete arv, tuhat|Järva maakond|16 aastat kuni pensioniiga || 3.5,3.9,4,3.6,3.9,3.8,4.9,3.5,3,2.8,3.5
+Mitteaktiivsete arv, tuhat|Järva maakond|20 kuni 64 aastat || ..,..,..,3.2,3.4,3.3,4.1,2.6,1.9,2.4,3.1
+Mitteaktiivsete arv, tuhat|Rapla maakond|15 kuni 74 aastat || 8,8.1,8,7.6,7.7,7.1,8.5,7.2,6.7,7.5,8.1
+Mitteaktiivsete arv, tuhat|Rapla maakond|16 aastat kuni pensioniiga || 3.5,3.5,4.3,3.8,3.8,3.4,3.7,3.7,4.3,3.6,4.2
+Mitteaktiivsete arv, tuhat|Rapla maakond|20 kuni 64 aastat || ..,..,..,3.2,3.1,2.4,3.1,2.8,3.5,2.4,2.6
+Tööjõus osalemise määr, %|Eesti|15 kuni 74 aastat || 69.4,70.4,71.6,71.9,71.6,71.6,71.1,73.3,73.9,74.6,74.1
+Tööjõus osalemise määr, %|Eesti|16 aastat kuni pensioniiga || 78.5,79.1,80.6,81,80.7,80.9,80.9,82.9,83.3,83.7,83.2
+Tööjõus osalemise määr, %|Eesti|20 kuni 64 aastat || ..,..,..,83.5,83.5,84.2,84.5,86.6,87.5,88.3,87.9
+Tööjõus osalemise määr, %|Harju maakond|15 kuni 74 aastat || 74.9,75.7,77.9,77.3,77.5,76.5,75.8,78.9,78.1,78.4,78.1
+Tööjõus osalemise määr, %|Harju maakond|16 aastat kuni pensioniiga || 82.5,82.9,85.3,84.6,84.8,83.8,84.1,86.6,86.2,86.7,86.5
+Tööjõus osalemise määr, %|Harju maakond|20 kuni 64 aastat || ..,..,..,87.1,87.4,87.2,87.6,90.1,90.3,91.2,90.9
+Tööjõus osalemise määr, %|Järva maakond|15 kuni 74 aastat || 68.4,67.4,66.7,66,65.2,67.6,63.5,67.6,72.2,68.9,66.6
+Tööjõus osalemise määr, %|Järva maakond|16 aastat kuni pensioniiga || 80.5,79,77.7,79.2,77.6,78.6,72.3,79.1,82.4,82.4,78.9
+Tööjõus osalemise määr, %|Järva maakond|20 kuni 64 aastat || ..,..,..,81.5,80.4,81.4,75.8,83.6,88,84.1,80.4
+Tööjõus osalemise määr, %|Rapla maakond|15 kuni 74 aastat || 68.7,68.7,68.5,69.5,68.7,71.3,64.5,70.4,72.4,68.8,67.5
+Tööjõus osalemise määr, %|Rapla maakond|16 aastat kuni pensioniiga || 82.3,82.4,78.8,80.9,80.7,82.9,79.8,80.8,78.5,80.4,78
+Tööjõus osalemise määr, %|Rapla maakond|20 kuni 64 aastat || ..,..,..,83.5,83.9,87.1,82.4,84.9,82.1,86.2,85.2
+Tööhõive määr, %|Eesti|15 kuni 74 aastat || 65.2,65.6,67.5,68.1,68.4,66.7,66.7,69.2,69.2,68.9,68.5
+Tööhõive määr, %|Eesti|16 aastat kuni pensioniiga || 73.5,73.6,75.8,76.6,77,75.2,75.6,78,77.8,77.1,76.8
+Tööhõive määr, %|Eesti|20 kuni 64 aastat || ..,..,..,79.2,79.9,78.6,79.3,81.9,82.1,81.8,81.7
+Tööhõive määr, %|Harju maakond|15 kuni 74 aastat || 71,71.3,74.2,73.9,74.8,71.9,71.5,74.3,73.2,72.8,72.3
+Tööhõive määr, %|Harju maakond|16 aastat kuni pensioniiga || 78,77.9,81.1,81,81.8,78.4,79.1,81.3,80.7,80.2,80
+Tööhõive määr, %|Harju maakond|20 kuni 64 aastat || ..,..,..,83.4,84.5,82,82.8,85,84.9,84.8,84.5
+Tööhõive määr, %|Järva maakond|15 kuni 74 aastat || 62.9,62.1,62.2,62.8,63.2,62.6,60,64.9,68.6,65.5,60.9
+Tööhõive määr, %|Järva maakond|16 aastat kuni pensioniiga || 74,72.5,72.2,75.4,75.4,73.2,68.2,75.9,78.2,78.5,72.3
+Tööhõive määr, %|Järva maakond|20 kuni 64 aastat || ..,..,..,77.6,78.4,75.9,71.8,80.5,84,81.4,74.7
+Tööhõive määr, %|Rapla maakond|15 kuni 74 aastat || 64.6,62.8,64,66.7,66.1,67,61.6,66.3,64.8,64,63.4
+Tööhõive määr, %|Rapla maakond|16 aastat kuni pensioniiga || 77,74.6,73.4,77.5,77.5,77.5,76,76,70.5,74.4,72.8
+Tööhõive määr, %|Rapla maakond|20 kuni 64 aastat || ..,..,..,80.1,80.6,81.4,78.4,80.1,74.6,80.4,80.2
+Töötuse määr, %|Eesti|15 kuni 74 aastat || 6.2,6.8,5.8,5.4,4.4,6.8,6.2,5.6,6.4,7.6,7.5
+Töötuse määr, %|Eesti|16 aastat kuni pensioniiga || 6.4,7.1,6,5.4,4.6,7.1,6.5,5.9,6.6,7.9,7.7
+Töötuse määr, %|Eesti|20 kuni 64 aastat || ..,..,..,5.1,4.3,6.7,6.1,5.5,6.2,7.4,7.1
+Töötuse määr, %|Harju maakond|15 kuni 74 aastat || 5.2,5.8,4.8,4.4,3.4,6.1,5.7,5.8,6.2,7.2,7.4
+Töötuse määr, %|Harju maakond|16 aastat kuni pensioniiga || 5.4,6,5,4.3,3.5,6.4,5.9,6.1,6.4,7.5,7.5
+Töötuse määr, %|Harju maakond|20 kuni 64 aastat || ..,..,..,4.2,3.3,6,5.6,5.6,6,7,7
+Töötuse määr, %|Järva maakond|15 kuni 74 aastat || 8,7.9,6.8,4.9,.,7.3,.,.,.,.,8.4
+Töötuse määr, %|Järva maakond|16 aastat kuni pensioniiga || 8.1,8.2,7,4.9,.,6.9,.,.,.,.,8.4
+Töötuse määr, %|Järva maakond|20 kuni 64 aastat || ..,..,..,4.8,.,6.7,.,.,.,.,.
+Töötuse määr, %|Rapla maakond|15 kuni 74 aastat || 6.1,8.6,6.5,.,.,.,.,.,10.6,7,.
+Töötuse määr, %|Rapla maakond|16 aastat kuni pensioniiga || 6.3,9.4,6.9,.,.,.,.,.,10.3,7.4,.
+Töötuse määr, %|Rapla maakond|20 kuni 64 aastat || ..,..,..,.,.,.,.,.,9.1,.,.
+
+##TT443 | Näitaja|Maakond || 2019,2020,2021,2022,2023,2024
+Töötuse määr, %|Eesti || 5.5,5.9,6.2,6.1,6.5,7.2
+Töötuse määr, %|Harju maakond || 4.6,5.1,5.9,5.9,6.4,7
+Töötuse määr, %|Järva maakond || 5.1,5.1,5.5,4.8,4.6,6
+Töötuse määr, %|Rapla maakond || 4.7,5,5.6,7.1,7.8,7.9
+
+##TT241 | Näitaja|Elukoht|Piirkond/maakond|Majandussektor || 2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025
+Hõivatute arv, tuhat|Kokku|Eesti|Kokku – kõik tegevusalad || 640.9,644.6,658.6,664.7,671.3,656.6,654.2,681,700,703.8,698.8
+Hõivatute arv, tuhat|Kokku|Eesti|Põllumajandus, metsamajandus ja kalapüük || 25,25,23.1,21.9,21.3,19.5,17.6,17.8,18.2,21.6,19.7
+Hõivatute arv, tuhat|Kokku|Eesti|Tööstus ja ehitus || 196.1,191.1,196.5,197.1,192.7,191.3,189.9,194.8,191.6,186.1,178.7
+Hõivatute arv, tuhat|Kokku|Eesti|Teenused || 419.8,428.5,438.9,445.8,457.3,445.8,446.8,468.4,490.2,496.1,500.4
+Hõivatute arv, tuhat|Kokku|Harju maakond|Kokku – kõik tegevusalad || 307.5,306.8,320.6,323.3,332.4,323.9,323,341.6,350.6,353.5,352.9
+Hõivatute arv, tuhat|Kokku|Harju maakond|Põllumajandus, metsamajandus ja kalapüük || 2.6,2.4,2.6,2.1,2,2.1,2.2,1.7,1.8,2.2,2.1
+Hõivatute arv, tuhat|Kokku|Harju maakond|Tööstus ja ehitus || 81,79.2,84.2,82.8,80.7,76.7,77.1,81.8,81.4,81.2,76.4
+Hõivatute arv, tuhat|Kokku|Harju maakond|Teenused || 224,225.2,233.9,238.4,249.7,245,243.6,258.1,267.4,270.1,274.4
+Hõivatute arv, tuhat|Kokku|Järva maakond|Kokku – kõik tegevusalad || 14.2,14.4,14.2,14.3,14.2,14,13.3,14.1,15,14.2,13.2
+Hõivatute arv, tuhat|Kokku|Järva maakond|Põllumajandus, metsamajandus ja kalapüük || 1.5,1.6,1.7,1.4,1.1,1.3,.,.,.,1.9,1.6
+Hõivatute arv, tuhat|Kokku|Järva maakond|Tööstus ja ehitus || 6.5,5.4,5.5,5.5,5.2,5.7,5.5,5.2,6.2,5.1,5.1
+Hõivatute arv, tuhat|Kokku|Järva maakond|Teenused || 6.2,7.4,7,7.4,7.9,7,7,7.8,7.9,7.3,6.4
+Hõivatute arv, tuhat|Kokku|Rapla maakond|Kokku – kõik tegevusalad || 16.6,16.2,16.3,16.5,16.3,16.5,14.7,16,15.9,15.5,16.1
+Hõivatute arv, tuhat|Kokku|Rapla maakond|Põllumajandus, metsamajandus ja kalapüük || 1.3,1.1,1,0.9,1.1,1.1,.,1.3,1.1,.,.
+Hõivatute arv, tuhat|Kokku|Rapla maakond|Tööstus ja ehitus || 5.8,6.3,5.5,5.6,6.2,6.2,5.2,5.2,4.7,4.9,5
+Hõivatute arv, tuhat|Kokku|Rapla maakond|Teenused || 9.6,8.8,9.8,10,9,9.2,8.8,9.5,10,9.8,10.3
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Rapla maakond|Põllumajandus, metsamajandus ja kalapüük || 7.7,7,6.1,5.7,6.6,6.5,.,7.8,7,.,.
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Rapla maakond|Tööstus ja ehitus || 34.7,38.7,33.8,33.8,38.2,37.9,35.4,32.7,29.9,31.6,31.4
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Rapla maakond|Teenused || 57.6,54.3,60.2,60.5,55.2,55.6,59.4,59.5,63.1,62.9,64.2
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Eesti|Tööstus ja ehitus || 30.6,29.6,29.8,29.6,28.7,29.1,29,28.6,27.4,26.4,25.6
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Eesti|Teenused || 65.5,66.5,66.6,67.1,68.1,67.9,68.3,68.8,70,70.5,71.6
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Harju maakond|Tööstus ja ehitus || 26.3,25.8,26.3,25.6,24.3,23.7,23.9,23.9,23.2,23,21.7
+Hõivatute osatähtsus (majandussektorid kokku=100), %|Kokku|Järva maakond|Tööstus ja ehitus || 46,37.1,38.6,38.7,36.8,40.7,41.7,36.7,41,35.7,39.1

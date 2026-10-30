@@ -1,0 +1,109 @@
+##TT065 | Kuu|Piirkond/Haldusüksus|Sugu|Vanuserühm || 2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026
+Kuude keskmine|Kogu Eesti|Mehed ja naised|Vanuserühmad kokku || 27730,28545,30175,30800,32130,47189,50078,47287,51662,50474,46095,41411
+Kuude keskmine|Kogu Eesti|Mehed ja naised|16-24 || 3489,3269,3017,2853,3153,5502,6127,5998,7144,7606,7573,6704
+Kuude keskmine|Kogu Eesti|Mehed ja naised|25-54 || 19273,19572,20218,20389,21182,31236,33089,31497,34029,32360,29020,26143
+Kuude keskmine|Kogu Eesti|Mehed ja naised|55 ja vanemad || 4968,5704,6940,7558,7795,10451,10862,9792,10489,10509,9503,8565
+Kuude keskmine|HARJU MAAKOND|Mehed ja naised|Vanuserühmad kokku || 9351,9602,10275,11227,12573,20903,23623,22372,24582,23637,21919,19706
+Kuude keskmine|HARJU MAAKOND|Mehed ja naised|16-24 || 893,851,821,862,1036,2248,2635,2559,3052,3324,3398,3063
+Kuude keskmine|HARJU MAAKOND|Mehed ja naised|25-54 || 6881,6988,7360,8022,8942,14755,16584,15800,17219,16078,14581,13135
+Kuude keskmine|HARJU MAAKOND|Mehed ja naised|55 ja vanemad || 1577,1763,2093,2343,2594,3900,4404,4013,4311,4235,3940,3508
+Kuude keskmine|JÄRVA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 671,720,808,817,783,986,969,965,1002,1004,934,747
+Kuude keskmine|JÄRVA MAAKOND|Mehed ja naised|16-24 || 87,98,102,98,104,151,143,151,157,145,145,122
+Kuude keskmine|JÄRVA MAAKOND|Mehed ja naised|25-54 || 447,454,509,491,478,605,585,586,598,602,571,434
+Kuude keskmine|JÄRVA MAAKOND|Mehed ja naised|55 ja vanemad || 137,167,197,228,201,231,241,228,247,257,218,190
+Kuude keskmine|RAPLA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 821,774,724,725,747,1079,1160,1106,1145,1069,1004,811
+Kuude keskmine|RAPLA MAAKOND|Mehed ja naised|16-24 || 105,92,87,80,91,154,179,151,167,163,169,125
+Kuude keskmine|RAPLA MAAKOND|Mehed ja naised|25-54 || 536,518,457,452,479,685,721,703,721,656,604,496
+Kuude keskmine|RAPLA MAAKOND|Mehed ja naised|55 ja vanemad || 179,164,180,193,177,241,260,253,256,250,231,189
+Kuude keskmine|..Kehtna vald|Mehed ja naised|Vanuserühmad kokku || 154,147,119,129,135,178,193,180,210,182,175,140
+Kuude keskmine|..Kehtna vald|Mehed ja naised|16-24 || 22,21,19,15,23,32,38,30,31,28,29,20
+Kuude keskmine|..Kehtna vald|Mehed ja naised|25-54 || 99,98,73,76,82,107,117,110,133,108,100,86
+Kuude keskmine|..Kehtna vald|Mehed ja naised|55 ja vanemad || 33,29,27,39,31,39,38,40,46,45,46,34
+Kuude keskmine|..Kohila vald|Mehed ja naised|Vanuserühmad kokku || 172,146,139,139,155,243,264,256,239,226,217,204
+Kuude keskmine|..Kohila vald|Mehed ja naised|16-24 || 17,16,13,16,15,23,33,31,29,28,37,35
+Kuude keskmine|..Kohila vald|Mehed ja naised|25-54 || 116,101,84,83,106,163,171,170,161,151,139,124
+Kuude keskmine|..Kohila vald|Mehed ja naised|55 ja vanemad || 38,29,42,40,34,57,61,55,50,47,42,45
+Kuude keskmine|..Märjamaa vald|Mehed ja naised|Vanuserühmad kokku || 190,179,170,174,174,244,274,265,285,247,213,157
+Kuude keskmine|..Märjamaa vald|Mehed ja naised|16-24 || 25,21,17,19,17,33,34,35,44,37,32,22
+Kuude keskmine|..Märjamaa vald|Mehed ja naised|25-54 || 131,118,112,113,114,160,176,171,171,147,131,98
+Kuude keskmine|..Märjamaa vald|Mehed ja naised|55 ja vanemad || 35,40,40,43,43,52,63,58,69,64,49,37
+Kuude keskmine|..Rapla vald|Mehed ja naised|Vanuserühmad kokku || 304,302,296,282,282,414,429,406,411,414,400,310
+Kuude keskmine|..Rapla vald|Mehed ja naised|16-24 || 41,34,37,30,35,66,74,55,63,69,71,48
+Kuude keskmine|..Rapla vald|Mehed ja naised|25-54 || 190,202,189,181,177,256,257,252,256,250,235,188
+Kuude keskmine|..Rapla vald|Mehed ja naised|55 ja vanemad || 73,66,70,71,69,93,98,100,91,94,94,73
+
+##TT065M | Aasta|Piirkond/Haldusüksus|Sugu|Vanuserühm || Kuude keskmine,Jaanuar,Veebruar,Märts,Aprill,Mai,Juuni,Juuli,August,September,Oktoober,November,Detsember
+2025|Kogu Eesti|Mehed ja naised|Vanuserühmad kokku || 46095,51117,51217,49858,47357,44658,45173,45711,44387,42965,42759,43273,44667
+2025|HARJU MAAKOND|Mehed ja naised|Vanuserühmad kokku || 21919,23970,24062,23566,22547,21549,21727,21966,21266,20647,20407,20405,20913
+2025|JÄRVA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 934,1069,1091,1047,934,891,912,916,869,834,854,882,910
+2025|RAPLA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 1004,1111,1107,1094,1029,953,996,998,966,947,943,938,970
+2025|..Kehtna vald|Mehed ja naised|Vanuserühmad kokku || 175,188,191,184,169,155,167,167,163,166,182,177,186
+2025|..Kohila vald|Mehed ja naised|Vanuserühmad kokku || 217,235,239,236,222,209,206,212,215,217,206,203,209
+2025|..Märjamaa vald|Mehed ja naised|Vanuserühmad kokku || 213,234,240,235,216,195,212,223,212,198,198,198,192
+2025|..Rapla vald|Mehed ja naised|Vanuserühmad kokku || 400,454,437,439,422,394,411,396,376,366,357,360,383
+2026|Kogu Eesti|Mehed ja naised|Vanuserühmad kokku || 41411,46110,46068,44316,41868,39167,39506,39860,38376,37431,..,..,..
+2026|HARJU MAAKOND|Mehed ja naised|Vanuserühmad kokku || 19706,21606,21514,20692,19932,18901,19131,19150,18425,18002,..,..,..
+2026|JÄRVA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 747,943,919,845,747,671,671,692,644,590,..,..,..
+2026|RAPLA MAAKOND|Mehed ja naised|Vanuserühmad kokku || 811,981,992,935,817,715,735,730,701,692,..,..,..
+2026|..Kehtna vald|Mehed ja naised|Vanuserühmad kokku || 140,183,173,165,148,114,117,121,128,115,..,..,..
+2026|..Kohila vald|Mehed ja naised|Vanuserühmad kokku || 204,207,224,224,210,196,198,198,190,187,..,..,..
+2026|..Märjamaa vald|Mehed ja naised|Vanuserühmad kokku || 157,202,202,175,138,133,139,137,139,149,..,..,..
+2026|..Rapla vald|Mehed ja naised|Vanuserühmad kokku || 310,389,393,371,321,272,281,274,244,241,..,..,..
+
+##PA107 | Näitaja|Haldusüksus || 2021,2022,2023,2024,2025
+Keskmine brutokuupalk, eurot|Eesti || 1474,1645,1832,1981,2092
+Keskmine brutokuupalk, eurot|Harju maakond || 1658,1855,2057,2218,2336
+Keskmine brutokuupalk, eurot|Järva maakond || 1268,1382,1527,1649,1747
+Keskmine brutokuupalk, eurot|Rapla maakond || 1221,1340,1485,1593,1697
+Keskmine brutokuupalk, eurot|Kehtna vald || 1274,1391,1564,1674,1796
+Keskmine brutokuupalk, eurot|Kohila vald || 1293,1423,1563,1678,1784
+Keskmine brutokuupalk, eurot|Märjamaa vald || 1131,1236,1369,1470,1591
+Keskmine brutokuupalk, eurot|Rapla vald || 1214,1334,1478,1584,1676
+Töötajate arv|Eesti || 589152,608767,604065,597480,592126
+Töötajate arv|Harju maakond || 314886,329108,328547,325819,323854
+Töötajate arv|Järva maakond || 11158,11217,11021,10837,10739
+Töötajate arv|Rapla maakond || 10523,10704,10431,10259,10188
+Töötajate arv|Kehtna vald || 1485,1493,1405,1400,1395
+Töötajate arv|Kohila vald || 2023,2085,2079,2053,2028
+Töötajate arv|Märjamaa vald || 2113,2129,2096,2051,2039
+Töötajate arv|Rapla vald || 4902,4997,4851,4756,4726
+Brutokuupalga mediaan (V detsiil), eurot|Eesti || 1200,1340,1501,1628,1724
+Brutokuupalga mediaan (V detsiil), eurot|Harju maakond || 1340,1500,1685,1818,1916
+Brutokuupalga mediaan (V detsiil), eurot|Järva maakond || 1099,1202,1341,1460,1556
+Brutokuupalga mediaan (V detsiil), eurot|Rapla maakond || 1069,1174,1300,1392,1473
+Brutokuupalga mediaan (V detsiil), eurot|Kehtna vald || 1088,1173,1335,1453,1581
+Brutokuupalga mediaan (V detsiil), eurot|Kohila vald || 1167,1286,1402,1485,1578
+Brutokuupalga mediaan (V detsiil), eurot|Märjamaa vald || 986,1087,1181,1270,1361
+Brutokuupalga mediaan (V detsiil), eurot|Rapla vald || 1066,1174,1300,1385,1457
+
+##PA117 | Näitaja|Haldusüksus || 2025 I kvartal,2025 II kvartal,2026 I kvartal,2026 II kvartal
+Keskmine brutokuupalk, eurot|Eesti || 2011,2126,2135,2243
+Keskmine brutokuupalk, eurot|Harju maakond || 2263,2365,2406,2488
+Keskmine brutokuupalk, eurot|Järva maakond || 1643,1758,1758,1872
+Keskmine brutokuupalk, eurot|Rapla maakond || 1565,1747,1686,1834
+Keskmine brutokuupalk, eurot|Kehtna vald || 1693,1892,1826,2011
+Keskmine brutokuupalk, eurot|Kohila vald || 1622,1880,1721,1922
+Keskmine brutokuupalk, eurot|Märjamaa vald || 1479,1600,1578,1689
+Keskmine brutokuupalk, eurot|Rapla vald || 1540,1710,1676,1803
+Töötajate arv|Eesti || 585120,593893,580099,588710
+Töötajate arv|Harju maakond || 320632,324641,319043,322666
+Töötajate arv|Järva maakond || 10507,10887,10405,10714
+Töötajate arv|Rapla maakond || 10094,10305,9824,10157
+Töötajate arv|Kehtna vald || 1394,1401,1330,1370
+Töötajate arv|Kohila vald || 2029,2025,2002,2086
+Töötajate arv|Märjamaa vald || 1995,2061,1941,1995
+Töötajate arv|Rapla vald || 4676,4818,4551,4706
+Brutokuupalga mediaan (V detsiil), eurot|Rapla maakond || 1395,1508,1478,1600
+Brutokuupalga mediaan (V detsiil), eurot|Eesti || 1649,1734,1753,1840
+
+##TT4660 | Näitaja|Piirkond|Isikute rühm || 2025 I kvartal,2025 II kvartal,2026 I kvartal,2026 II kvartal
+Tööhõive määr, %|Eesti|Kokku || 67.4,68.9,68,68.6
+Tööhõive määr, %|Eesti|20-64-aastased || 80.5,81.9,81.4,82.2
+Tööhõive määr, %|Kesk-Eesti|Kokku || 66.7,66,65.7,65.1
+Tööhõive määr, %|Kesk-Eesti|20-64-aastased || 80.8,78.1,81.6,77.9
+Tööjõus osalemise määr, %|Eesti|Kokku || 73.7,74.8,73.2,73.4
+Tööjõus osalemise määr, %|Kesk-Eesti|Kokku || 71.4,71.8,70.7,69.7
+Hõivatute arv, tuhat|Eesti|Kokku || 681.6,697.3,686.3,691.6
+Hõivatute arv, tuhat|Kesk-Eesti|Kokku || 60.6,57.2,58.1,57.5
+Tööjõud, tuhat|Eesti|Kokku || 745.8,756.5,738.5,740.6
+Tööjõud, tuhat|Kesk-Eesti|Kokku || 64.9,62.3,62.6,61.6
